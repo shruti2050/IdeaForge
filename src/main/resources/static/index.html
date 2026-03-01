@@ -571,6 +571,37 @@
 
         .footer-made span { color:var(--accent); }
 
+        /* ── DEVELOPER CREDIT ── */
+        .dev-credit {
+          display:flex; align-items:center; gap:8px;
+          margin-top:14px;
+          padding:10px 14px;
+          background:var(--bg);
+          border:1px solid var(--border);
+          border-radius:10px;
+          width:fit-content;
+        }
+
+        .dev-label {
+          font-family:'JetBrains Mono', monospace;
+          font-size:10px; letter-spacing:1px; text-transform:uppercase;
+          color:var(--muted);
+        }
+
+        .dev-name {
+          display:flex; align-items:center; gap:6px;
+          font-family:'Syne', sans-serif;
+          font-size:13px; font-weight:700;
+          color:var(--ink); text-decoration:none;
+          transition:color .15s;
+        }
+
+        .dev-name svg { flex-shrink:0; }
+
+        @media(hover:hover){
+          .dev-name:hover { color:var(--accent); }
+        }
+
         /* ── KEYFRAMES ── */
         @keyframes up {
           from { opacity:0; transform:translateY(20px); }
@@ -660,37 +691,47 @@
                     IdeaForge
                 </div>
                 <p class="footer-tagline">AI-powered project idea generation for developers at every level.</p>
+
+                <!-- DEVELOPER CREDIT -->
+                <div class="dev-credit">
+                    <span class="dev-label">Built by</span>
+                    <a class="dev-name" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener" id="devLink">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                        YOUR_NAME
+                    </a>
+                </div>
             </div>
+
             <div class="footer-links">
                 <div class="footer-col">
                     <span class="footer-col-label">Product</span>
-                    <a href="#">Generator</a>
-                    <a href="#">How it works</a>
-                    <a href="#">Changelog</a>
+                    <a href="#" onclick="scrollToTop(event)">Generator</a>
+                    <a href="#" onclick="scrollToHero(event)">How it works</a>
+                    <a href="https://github.com/YOUR_USERNAME/ideaforge/releases" target="_blank" rel="noopener">Changelog</a>
                 </div>
                 <div class="footer-col">
                     <span class="footer-col-label">Resources</span>
-                    <a href="#">Documentation</a>
-                    <a href="#">API</a>
-                    <a href="#">GitHub</a>
+                    <a href="https://github.com/YOUR_USERNAME/ideaforge/wiki" target="_blank" rel="noopener">Documentation</a>
+                    <a href="https://github.com/YOUR_USERNAME/ideaforge#api" target="_blank" rel="noopener">API</a>
+                    <a href="https://github.com/YOUR_USERNAME/ideaforge" target="_blank" rel="noopener">GitHub ↗</a>
                 </div>
                 <div class="footer-col">
-                    <span class="footer-col-label">Company</span>
-                    <a href="#">About</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Contact</a>
+                    <span class="footer-col-label">Connect</span>
+                    <a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub ↗</a>
+                    <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">LinkedIn ↗</a>
+                    <a href="/cdn-cgi/l/email-protection#7b22342e29243e363a32373b1c161a121755181416">Contact ✉</a>
                 </div>
             </div>
         </div>
+
         <div class="footer-bottom">
             <span class="footer-copy">© 2025 IdeaForge. All rights reserved.</span>
             <div class="footer-made">Made with <span>♥</span> for developers</div>
-
         </div>
     </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const COLORS = ['#c75b14','#1d4ed8','#15803d','#6d28d9','#be185d','#0f766e'];
 
     function esc(s) {
@@ -913,31 +954,25 @@
   Experience Level: ${level}
   Interest Area: ${interest}`;
 
-        const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
+        let text = '';
+
+        const backendRes = await fetch('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 4000,
-            system: systemPrompt,
-            messages: [{ role: 'user', content: userMsg }]
+            techStack: tech,
+            domain: domain,
+            level: level,
+            interest: interest
           })
         });
 
-        let text = '';
-
-        if (apiRes.ok) {
-          const data = await apiRes.json();
-          text = data.content?.map(b => b.text || '').join('') || '';
-        } else {
-          /* Fallback: try the /api/generate backend route */
-          const fallback = await fetch('/api/generate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ techStack: tech, domain, level, interest })
-          });
-          text = await fallback.text();
+        if (!backendRes.ok) {
+          const errText = await backendRes.text().catch(() => 'Unknown error');
+          throw new Error(`Server error ${backendRes.status}: ${errText}`);
         }
+
+        text = await backendRes.text();
 
         /* ── Parse [IDEA]...[/IDEA] blocks ── */
         let ideas = [];
@@ -977,15 +1012,39 @@
         loader.classList.remove('active');
         btn.disabled = false;
         btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
-        alert('Something went wrong. Please try again.');
-        console.error(e);
+        console.error('IdeaForge error:', e);
+
+        const wrap2  = document.getElementById('resultsWrap');
+        const list2  = document.getElementById('projects');
+        const badge2 = document.getElementById('countBadge');
+        wrap2.style.display = 'block';
+        badge2.textContent = 'error';
+        list2.innerHTML = `
+          <div style="background:#fff8f6;border:1px solid #fcd5c5;border-radius:16px;padding:28px 26px;display:flex;gap:14px;align-items:flex-start;font-family:'Inter',sans-serif;">
+            <span style="font-size:24px;flex-shrink:0;line-height:1">⚠️</span>
+            <div>
+              <div style="font-weight:600;font-size:15px;color:#7a3010;margin-bottom:6px">Could not generate ideas</div>
+              <div style="font-size:13px;line-height:1.65;color:#9a5030;margin-bottom:14px">
+                ${e.message ? '<strong>Error:</strong> ' + e.message : 'The server could not be reached. Make sure your <code style=\"background:#fde8df;padding:1px 5px;border-radius:4px\">/api/generate</code> backend is running on Render.'}
+              </div>
+              <div style="font-size:12px;color:#b87050;line-height:1.6">
+                <strong>Common fixes:</strong><br>
+                · Free tier Render services sleep after inactivity — wait 30s and retry<br>
+                · Check your API key is set in Render environment variables<br>
+                · Open browser console (F12) for the full error trace
+              </div>
+            </div>
+          </div>`;
       }
     }
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
     });
-</script>
 
-</body>
-</html>
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToHero(e
