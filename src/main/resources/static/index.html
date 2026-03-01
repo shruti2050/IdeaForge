@@ -99,68 +99,73 @@
     const STRIPES = ['#d4601a','#2563eb','#059669','#7c3aed'];
     const KEYWORDS = ['AI','ML','API','Java','React','Blockchain','Fintech','Security'];
 
-    async function generateIdeas(){
-        const btn = document.getElementById('genBtn');
-        const loader = document.getElementById('loader');
-        const list = document.getElementById('projects');
-        const wrap = document.getElementById('resultsWrap');
+   async function generateIdeas(){
+  const btn = document.getElementById('genBtn');
+  const loader = document.getElementById('loader');
+  const list = document.getElementById('projects');
+  const wrap = document.getElementById('resultsWrap');
 
-        btn.disabled = true;
-        loader.classList.add('active');
-        list.innerHTML = '';
+  list.innerHTML = '';
+  wrap.style.display = 'none';
+  loader.classList.add('active');
+  btn.disabled = true;
 
-        try {
-            const res = await fetch('/api/generate', {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({
-                    techStack: document.getElementById('tech').value,
-                    domain: document.getElementById('domain').value,
-                    level: document.getElementById('level').value,
-                    interest: document.getElementById('interest').value
-                })
-            });
+  try {
+    const res = await fetch('/api/generate', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        techStack: document.getElementById('tech').value,
+        domain:    document.getElementById('domain').value,
+        level:     document.getElementById('level').value,
+        interest:  document.getElementById('interest').value
+      })
+    });
 
-            const raw = await res.text();
+    const raw = await res.text();
 
-            // Smarter split logic: Look for "Project 1:", "Project 2:", or "1."
-            let ideas = raw.split(/Project \d+:|Idea \d+:|\n\d+\./gi).filter(s => s.trim().length > 20);
+    // 1. IMPROVED SPLIT: Look for "Project Idea X" or "Idea X" or "##"
+    let ideas = raw.split(/(?=Project Idea \d|## Project Idea \d|Idea \d:|\n\d+\.)/gi)
+                   .filter(s => s.trim().length > 50);
 
-            // If the split failed, just show the whole thing in one card
-            if (ideas.length === 0) ideas = [raw];
+    loader.classList.remove('active');
+    btn.disabled = false;
+    wrap.style.display = 'block';
 
-            loader.classList.remove('active');
-            btn.disabled = false;
-            wrap.style.display = 'block';
+    ideas.forEach((content, i) => {
+      // 2. CONVERT MARKDOWN STARS TO HTML BOLD TAGS
+      let formattedContent = content
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Fixes the **stars**
+        .replace(/^\d+\.\s+/, '') // Removes leading numbers
+        .replace(/##\s+/g, '');   // Removes ## headers
 
-            ideas.forEach((content, i) => {
-                const lines = content.trim().split('\n');
-                const title = lines[0].replace(/[*#]/g, '').trim();
-                const desc = lines.slice(1).join('\n').trim();
-                const color = STRIPES[i % STRIPES.length];
+      const lines = formattedContent.split('\n').filter(l => l.trim());
+      const title = lines[0] || "Project Idea";
+      const desc  = lines.slice(1).join('<br>'); // Use <br> for spacing inside cards
 
-                const card = document.createElement('div');
-                card.className = 'idea-card';
-                card.style.setProperty('--stripe-color', color);
-                card.innerHTML = `
-                    <div class="card-stripe"></div>
-                    <div class="card-body">
-                        <div class="card-title">${title}</div>
-                        <div class="card-desc">${desc}</div>
-                        <div class="card-tags">
-                            ${KEYWORDS.filter(k => content.includes(k)).map(t => `<span class="ktag">${t}</span>`).join('')}
-                        </div>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-            wrap.scrollIntoView({ behavior:'smooth' });
-        } catch(e) {
-            alert("Error: Check your API key or connection.");
-            btn.disabled = false;
-            loader.classList.remove('active');
-        }
-    }
+      const card = document.createElement('div');
+      card.className = 'idea-card';
+      card.style.setProperty('--stripe-color', STRIPES[i % STRIPES.length]);
+
+      card.innerHTML = `
+        <div class="card-stripe"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-badge">FORGE ${String(i+1).padStart(2,'0')}</span>
+          </div>
+          <div class="card-title">${title}</div>
+          <div class="card-desc">${desc}</div>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+
+  } catch(e) {
+    loader.classList.remove('active');
+    btn.disabled = false;
+    alert('Deployment successful, but API call failed. Check Render logs.');
+  }
+}
 </script>
 </body>
 </html>
