@@ -7,25 +7,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-
         :root {
-          --bg:       #f7f5f0;
-          --surface:  #ffffff;
-          --border:   #e3ddd5;
-          --border2:  #ccc5bb;
-          --ink:      #18150f;
-          --ink2:     #3a342c;
-          --body:     #56504a;
-          --muted:    #9b9389;
-          --accent:   #c75b14;
-          --blue:     #1d4ed8;
-          --green:    #15803d;
-          --purple:   #6d28d9;
-          --rose:     #be185d;
-          --amber:    #b45309;
-          --teal:     #0f766e;
-
-          --sh: 0 1px 4px rgba(0,0,0,.06), 0 4px 20px rgba(0,0,0,.06);
+          --bg:      #f7f5f0;
+          --surface: #ffffff;
+          --border:  #e3ddd5;
+          --border2: #ccc5bb;
+          --ink:     #18150f;
+          --ink2:    #3a342c;
+          --body:    #56504a;
+          --muted:   #9b9389;
+          --accent:  #c75b14;
+          --blue:    #1d4ed8;
+          --sh:  0 1px 4px rgba(0,0,0,.06), 0 4px 20px rgba(0,0,0,.06);
           --sh2: 0 2px 10px rgba(0,0,0,.08), 0 20px 48px rgba(0,0,0,.09);
         }
 
@@ -33,24 +26,26 @@
         html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 
         body {
-          background: var(--bg);
-          color: var(--ink);
-          font-family: 'Inter', sans-serif;
-          min-height: 100dvh;
-          overflow-x: hidden;
+          background:var(--bg);
+          color:var(--ink);
+          font-family:'Inter', sans-serif;
+          min-height:100dvh;
+          overflow-x:hidden;
         }
 
-        /* ── NAV ── */
+        /* ════════════════════════════
+           NAV
+        ════════════════════════════ */
         nav {
           position:sticky; top:0; z-index:100;
           display:flex; align-items:center; justify-content:space-between;
-          padding: clamp(14px,2.2vw,18px) clamp(20px,5vw,60px);
-          padding-left:  max(clamp(20px,5vw,60px), env(safe-area-inset-left));
-          padding-right: max(clamp(20px,5vw,60px), env(safe-area-inset-right));
-          background: rgba(247,245,240,0.9);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid var(--border);
+          padding:clamp(14px,2.2vw,18px) clamp(20px,5vw,60px);
+          padding-left: max(clamp(20px,5vw,60px), env(safe-area-inset-left));
+          padding-right:max(clamp(20px,5vw,60px), env(safe-area-inset-right));
+          background:rgba(247,245,240,0.92);
+          backdrop-filter:blur(20px);
+          -webkit-backdrop-filter:blur(20px);
+          border-bottom:1px solid var(--border);
         }
 
         .logo {
@@ -63,27 +58,26 @@
 
         .logo-mark {
           width:30px; height:30px;
-          background:var(--ink);
-          border-radius:8px;
+          background:var(--ink); border-radius:8px;
           display:grid; place-items:center;
           font-size:13px; flex-shrink:0;
         }
 
         .nav-chip {
           font-family:'JetBrains Mono', monospace;
-          font-size:clamp(9px,1.3vw,10px);
-          letter-spacing:.5px;
+          font-size:clamp(9px,1.3vw,10px); letter-spacing:.5px;
           color:var(--accent);
           border:1px solid rgba(199,91,20,.28);
           border-radius:100px; padding:3px 11px;
           white-space:nowrap;
         }
 
-        /* ── HERO ── */
+        /* ════════════════════════════
+           HERO
+        ════════════════════════════ */
         .hero {
-          position:relative; z-index:5;
-          text-align:center;
-          padding: clamp(52px,9vw,100px) clamp(20px,5vw,40px) clamp(36px,5vw,52px);
+          position:relative; z-index:5; text-align:center;
+          padding:clamp(52px,9vw,100px) clamp(20px,5vw,40px) clamp(36px,5vw,52px);
         }
 
         .hero-eyebrow {
@@ -96,8 +90,7 @@
         }
 
         .hero h1 {
-          font-family:'Syne', sans-serif;
-          font-weight:800;
+          font-family:'Syne', sans-serif; font-weight:800;
           font-size:clamp(34px,7.5vw,80px);
           line-height:1.0; letter-spacing:-.5px;
           color:var(--ink);
@@ -109,20 +102,21 @@
         .hero-sub {
           margin-top:clamp(14px,2.5vw,20px);
           font-size:clamp(14px,2vw,16px);
-          line-height:1.65; font-weight:400;
-          color:var(--body);
+          line-height:1.65; font-weight:400; color:var(--body);
           max-width:460px; margin-inline:auto;
           opacity:0; animation:up .6s ease .3s forwards;
         }
 
-        /* ── FORM ── */
+        /* ════════════════════════════
+           FORM
+        ════════════════════════════ */
         .generator {
           position:relative; z-index:5;
           width:min(680px,100%);
           margin:0 auto clamp(52px,8vw,76px);
           padding:0 clamp(16px,4vw,20px);
-          padding-left:  max(clamp(16px,4vw,20px), env(safe-area-inset-left));
-          padding-right: max(clamp(16px,4vw,20px), env(safe-area-inset-right));
+          padding-left: max(clamp(16px,4vw,20px), env(safe-area-inset-left));
+          padding-right:max(clamp(16px,4vw,20px), env(safe-area-inset-right));
           opacity:0; animation:up .6s ease .4s forwards;
         }
 
@@ -203,7 +197,9 @@
         .gen-btn:active { transform:scale(.985); }
         .gen-btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
 
-        /* ── LOADER ── */
+        /* ════════════════════════════
+           LOADER
+        ════════════════════════════ */
         .loader { display:none; padding:22px 0 4px; }
         .loader.active { display:block; }
 
@@ -236,14 +232,16 @@
 
         @keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-        /* ── RESULTS ── */
+        /* ════════════════════════════
+           RESULTS SECTION
+        ════════════════════════════ */
         .results-wrap {
           position:relative; z-index:5;
           width:min(900px,100%);
           margin:0 auto 0;
           padding:0 clamp(16px,4vw,20px);
-          padding-left:  max(clamp(16px,4vw,20px), env(safe-area-inset-left));
-          padding-right: max(clamp(16px,4vw,20px), env(safe-area-inset-right));
+          padding-left: max(clamp(16px,4vw,20px), env(safe-area-inset-left));
+          padding-right:max(clamp(16px,4vw,20px), env(safe-area-inset-right));
         }
 
         .results-header {
@@ -269,7 +267,9 @@
           white-space:nowrap;
         }
 
-        /* ── IDEA CARDS ── */
+        /* ════════════════════════════
+           IDEA CARDS
+        ════════════════════════════ */
         .cards-list {
           display:flex; flex-direction:column;
           gap:clamp(20px,3vw,28px);
@@ -287,14 +287,10 @@
         }
 
         @media(hover:hover){
-          .idea-card:hover {
-            border-color:var(--border2);
-            box-shadow:var(--sh2);
-            transform:translateY(-2px);
-          }
+          .idea-card:hover { border-color:var(--border2); box-shadow:var(--sh2); transform:translateY(-2px); }
         }
 
-        /* card top bar */
+        /* card header bar */
         .card-header {
           display:flex; align-items:center; justify-content:space-between; gap:12px;
           padding:clamp(18px,3.5vw,24px) clamp(20px,4vw,28px) clamp(14px,2.5vw,18px);
@@ -308,28 +304,26 @@
           font-family:'JetBrains Mono', monospace;
           font-size:clamp(10px,1.5vw,12px);
           font-weight:500; letter-spacing:1px;
-          color:var(--surface);
+          color:#fff;
           background:var(--stripe-color, var(--accent));
           border-radius:7px; padding:4px 10px;
           flex-shrink:0; white-space:nowrap;
         }
 
         .card-title {
-          font-family:'Syne', sans-serif;
-          font-weight:700;
-          font-size:clamp(16px,2.8vw,21px);
+          font-family:'Syne', sans-serif; font-weight:700;
+          font-size:clamp(15px,2.8vw,20px);
           line-height:1.25; letter-spacing:-.2px;
           color:var(--ink);
         }
 
         .card-expand-btn {
           width:32px; height:32px;
-          border:1px solid var(--border);
-          border-radius:8px;
+          border:1px solid var(--border); border-radius:8px;
           background:none; cursor:pointer;
           display:grid; place-items:center;
-          font-size:14px; color:var(--muted);
-          flex-shrink:0;
+          font-size:20px; line-height:1;
+          color:var(--muted); flex-shrink:0;
           transition:border-color .2s, color .2s, transform .25s;
           -webkit-tap-highlight-color:transparent;
         }
@@ -340,7 +334,7 @@
 
         .card-expand-btn.open { transform:rotate(45deg); }
 
-        /* card sections body */
+        /* expandable sections */
         .card-sections {
           display:none;
           padding:0 clamp(20px,4vw,28px) clamp(20px,3.5vw,26px);
@@ -370,14 +364,13 @@
           border-radius:50%; flex-shrink:0;
         }
 
-        /* Problem statement */
+        /* problem text */
         .problem-text {
           font-size:clamp(13.5px,1.8vw,15px);
-          line-height:1.75; color:var(--body);
-          font-weight:400;
+          line-height:1.75; color:var(--body); font-weight:400;
         }
 
-        /* Key features */
+        /* features grid */
         .features-grid {
           display:grid;
           grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
@@ -391,35 +384,24 @@
           border-radius:9px;
           padding:clamp(10px,1.8vw,12px) clamp(12px,2vw,14px);
           font-size:clamp(12px,1.6vw,13px);
-          line-height:1.45; color:var(--ink2);
-          font-weight:500;
+          line-height:1.45; color:var(--ink2); font-weight:500;
         }
 
-        .feature-chip .fc-dot {
+        .fc-dot {
           width:7px; height:7px;
           background:var(--stripe-color,var(--accent));
-          border-radius:50%; flex-shrink:0;
-          margin-top:5px;
+          border-radius:50%; flex-shrink:0; margin-top:4px;
         }
 
-        /* Roadmap */
-        .roadmap-list {
-          display:flex; flex-direction:column; gap:0;
-        }
+        /* roadmap */
+        .roadmap-list { display:flex; flex-direction:column; }
 
-        .roadmap-step {
-          display:flex; gap:clamp(12px,2vw,16px);
-          align-items:flex-start;
-        }
+        .roadmap-step { display:flex; gap:clamp(12px,2vw,16px); align-items:flex-start; }
 
-        .step-track {
-          display:flex; flex-direction:column; align-items:center;
-          flex-shrink:0;
-        }
+        .step-track { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
 
         .step-dot {
-          width:28px; height:28px;
-          border-radius:50%;
+          width:28px; height:28px; border-radius:50%;
           background:color-mix(in srgb, var(--stripe-color,var(--accent)) 12%, transparent);
           border:2px solid var(--stripe-color,var(--accent));
           display:grid; place-items:center;
@@ -429,18 +411,10 @@
           flex-shrink:0;
         }
 
-        .step-line {
-          width:2px; flex:1;
-          background:var(--border);
-          min-height:18px;
-        }
-
+        .step-line { width:2px; flex:1; background:var(--border); min-height:18px; }
         .roadmap-step:last-child .step-line { display:none; }
 
-        .step-content {
-          padding-bottom:clamp(14px,2.5vw,18px);
-          flex:1;
-        }
+        .step-content { padding-bottom:clamp(14px,2.5vw,18px); flex:1; }
 
         .step-phase {
           font-family:'JetBrains Mono', monospace;
@@ -451,29 +425,23 @@
 
         .step-text {
           font-size:clamp(13px,1.7vw,14px);
-          line-height:1.6; color:var(--body);
-          font-weight:400;
+          line-height:1.6; color:var(--body); font-weight:400;
         }
 
-        /* Tech tags row */
-        .tech-row {
-          display:flex; flex-wrap:wrap; gap:7px;
-        }
+        /* deployment tags */
+        .tech-row { display:flex; flex-wrap:wrap; gap:7px; }
 
         .tech-tag {
           font-family:'JetBrains Mono', monospace;
-          font-size:clamp(9px,1.3vw,10px);
-          letter-spacing:.5px;
+          font-size:clamp(9px,1.3vw,10px); letter-spacing:.5px;
           color:var(--body);
           background:var(--bg);
           border:1px solid var(--border);
           border-radius:6px; padding:4px 10px;
         }
 
-        /* Future scope */
-        .scope-list {
-          display:flex; flex-direction:column; gap:8px;
-        }
+        /* future scope */
+        .scope-list { display:flex; flex-direction:column; gap:8px; }
 
         .scope-item {
           display:flex; align-items:flex-start; gap:10px;
@@ -484,20 +452,21 @@
         .scope-item::before {
           content:'→';
           color:var(--stripe-color,var(--accent));
-          font-weight:600; flex-shrink:0; margin-top:1px;
-          font-size:13px;
+          font-weight:600; flex-shrink:0; margin-top:1px; font-size:13px;
         }
 
-        /* ── FOOTER ── */
+        /* ════════════════════════════
+           FOOTER
+        ════════════════════════════ */
         footer {
           position:relative; z-index:5;
           margin-top:clamp(60px,8vw,100px);
-          padding:clamp(28px,5vw,44px) clamp(20px,5vw,60px);
-          padding-left:  max(clamp(20px,5vw,60px), env(safe-area-inset-left));
-          padding-right: max(clamp(20px,5vw,60px), env(safe-area-inset-right));
-          padding-bottom:max(clamp(28px,5vw,44px), env(safe-area-inset-bottom));
-          border-top:1px solid var(--border);
           background:var(--surface);
+          border-top:1px solid var(--border);
+          padding:clamp(28px,5vw,44px) clamp(20px,5vw,60px);
+          padding-left: max(clamp(20px,5vw,60px), env(safe-area-inset-left));
+          padding-right:max(clamp(20px,5vw,60px), env(safe-area-inset-right));
+          padding-bottom:max(clamp(28px,5vw,44px), env(safe-area-inset-bottom));
         }
 
         .footer-inner {
@@ -528,9 +497,39 @@
 
         .footer-tagline {
           font-size:13px; color:var(--muted);
-          line-height:1.5; max-width:240px;
+          line-height:1.5; max-width:220px;
         }
 
+        /* developer credit */
+        .dev-credit {
+          display:flex; align-items:center; gap:8px;
+          margin-top:14px;
+          padding:10px 14px;
+          background:var(--bg);
+          border:1px solid var(--border);
+          border-radius:10px;
+          width:fit-content;
+        }
+
+        .dev-label {
+          font-family:'JetBrains Mono', monospace;
+          font-size:10px; letter-spacing:1px; text-transform:uppercase;
+          color:var(--muted);
+        }
+
+        .dev-name {
+          display:flex; align-items:center; gap:6px;
+          font-family:'Syne', sans-serif;
+          font-size:13px; font-weight:700;
+          color:var(--ink); text-decoration:none;
+          transition:color .15s;
+        }
+
+        .dev-name svg { flex-shrink:0; }
+
+        @media(hover:hover){ .dev-name:hover { color:var(--accent); } }
+
+        /* footer nav columns */
         .footer-links {
           display:flex; gap:clamp(28px,5vw,56px); flex-wrap:wrap;
         }
@@ -571,38 +570,9 @@
 
         .footer-made span { color:var(--accent); }
 
-        /* ── DEVELOPER CREDIT ── */
-        .dev-credit {
-          display:flex; align-items:center; gap:8px;
-          margin-top:14px;
-          padding:10px 14px;
-          background:var(--bg);
-          border:1px solid var(--border);
-          border-radius:10px;
-          width:fit-content;
-        }
-
-        .dev-label {
-          font-family:'JetBrains Mono', monospace;
-          font-size:10px; letter-spacing:1px; text-transform:uppercase;
-          color:var(--muted);
-        }
-
-        .dev-name {
-          display:flex; align-items:center; gap:6px;
-          font-family:'Syne', sans-serif;
-          font-size:13px; font-weight:700;
-          color:var(--ink); text-decoration:none;
-          transition:color .15s;
-        }
-
-        .dev-name svg { flex-shrink:0; }
-
-        @media(hover:hover){
-          .dev-name:hover { color:var(--accent); }
-        }
-
-        /* ── KEYFRAMES ── */
+        /* ════════════════════════════
+           KEYFRAMES
+        ════════════════════════════ */
         @keyframes up {
           from { opacity:0; transform:translateY(20px); }
           to   { opacity:1; transform:translateY(0); }
@@ -611,12 +581,11 @@
         @keyframes cardIn {
           to { opacity:1; transform:translateY(0); }
         }
-
     </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ══════════ NAV ══════════ -->
 <nav>
     <a class="logo" href="#">
         <div class="logo-mark">⚡</div>
@@ -625,14 +594,14 @@
     <span class="nav-chip">AI · v2.0</span>
 </nav>
 
-<!-- HERO -->
+<!-- ══════════ HERO ══════════ -->
 <div class="hero">
     <div class="hero-eyebrow">Project Idea Generator</div>
     <h1>Ideas worth<br><span class="hi">building</span></h1>
     <p class="hero-sub">Tell us your stack, domain, and level. Get complete, structured project ideas — ready to build or pitch.</p>
 </div>
 
-<!-- FORM -->
+<!-- ══════════ FORM ══════════ -->
 <div class="generator">
     <div class="form-card">
         <div class="fields-grid">
@@ -671,7 +640,7 @@
     </div>
 </div>
 
-<!-- RESULTS -->
+<!-- ══════════ RESULTS ══════════ -->
 <div class="results-wrap" id="resultsWrap" style="display:none">
     <div class="results-header">
         <span class="results-eyebrow">Ideas</span>
@@ -681,10 +650,11 @@
     <div class="cards-list" id="projects"></div>
 </div>
 
-<!-- FOOTER -->
+<!-- ══════════ FOOTER ══════════ -->
 <footer>
     <div class="footer-inner">
         <div class="footer-top">
+
             <div class="footer-brand">
                 <div class="footer-logo">
                     <div class="footer-logo-mark">⚡</div>
@@ -692,11 +662,23 @@
                 </div>
                 <p class="footer-tagline">AI-powered project idea generation for developers at every level.</p>
 
-                <!-- DEVELOPER CREDIT -->
+                <!-- ── Developer Credit ── -->
                 <div class="dev-credit">
                     <span class="dev-label">Built by</span>
-                    <a class="dev-name" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener" id="devLink">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <a class="dev-name"
+                       href="https://github.com/shruti2050"
+                       target="_blank" rel="noopener noreferrer">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57
+                       0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41
+                       -1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815
+                       2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925
+                       0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23
+                       .96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65
+                       .24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925
+                       .435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57
+                       A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
                         YOUR_NAME
                     </a>
                 </div>
@@ -707,21 +689,28 @@
                     <span class="footer-col-label">Product</span>
                     <a href="#" onclick="scrollToTop(event)">Generator</a>
                     <a href="#" onclick="scrollToHero(event)">How it works</a>
-                    <a href="https://github.com/YOUR_USERNAME/ideaforge/releases" target="_blank" rel="noopener">Changelog</a>
+                    <a href="https://github.com/shruti2050/ideaforge/releases"
+                       target="_blank" rel="noopener noreferrer">Changelog ↗</a>
                 </div>
                 <div class="footer-col">
                     <span class="footer-col-label">Resources</span>
-                    <a href="https://github.com/YOUR_USERNAME/ideaforge/wiki" target="_blank" rel="noopener">Documentation</a>
-                    <a href="https://github.com/YOUR_USERNAME/ideaforge#api" target="_blank" rel="noopener">API</a>
-                    <a href="https://github.com/YOUR_USERNAME/ideaforge" target="_blank" rel="noopener">GitHub ↗</a>
+                    <a href="https://github.com/shruti2050/ideaforge/wiki"
+                       target="_blank" rel="noopener noreferrer">Documentation ↗</a>
+                    <a href="https://github.com/shruti2050/ideaforge#readme"
+                       target="_blank" rel="noopener noreferrer">API Docs ↗</a>
+                    <a href="https://github.com/shruti2050/ideaforge"
+                       target="_blank" rel="noopener noreferrer">GitHub ↗</a>
                 </div>
                 <div class="footer-col">
                     <span class="footer-col-label">Connect</span>
-                    <a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub ↗</a>
-                    <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">LinkedIn ↗</a>
-                    <a href="/cdn-cgi/l/email-protection#7b22342e29243e363a32373b1c161a121755181416">Contact ✉</a>
+                    <a href="https://github.com/shruti2050"
+                       target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                    <a href="https://linkedin.com/in/shruti-joshi1208"
+                       target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+                    <a href="mailto:shrutijoshi1208@gmail.com">Contact ✉</a>
                 </div>
             </div>
+
         </div>
 
         <div class="footer-bottom">
@@ -731,124 +720,127 @@
     </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
     const COLORS = ['#c75b14','#1d4ed8','#15803d','#6d28d9','#be185d','#0f766e'];
 
+    /* ── HTML escape ── */
     function esc(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return String(s)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
     }
 
-    /* ── Parse structured sections from one idea block ── */
+    /* ── Parse one raw idea block into structured sections ── */
     function parseIdea(raw) {
-      const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-      const result = {
-        title: '',
-        problem: '',
-        features: [],
-        roadmap: [],
-        deployment: [],
-        scope: []
+      const result = { title:'', problem:'', features:[], roadmap:[], deployment:[], scope:[] };
+      const lines  = raw.split('\n').map(l => l.trim()).filter(Boolean);
+
+      const MAP = {
+        'title':'title',
+        'problem statement':'problem', 'problem':'problem',
+        'key features':'features',    'features':'features',
+        'roadmap':'roadmap',
+        'deployment':'deployment',    'deployment & tech':'deployment', 'tech stack':'deployment',
+        'future scope':'scope',       'future':'scope',
       };
 
-      let currentSection = null;
+      let section = null;
       let titleSet = false;
 
-      const sectionMap = {
-        'problem': 'problem',
-        'problem statement': 'problem',
-        'key features': 'features',
-        'features': 'features',
-        'roadmap': 'roadmap',
-        'deployment': 'deployment',
-        'tech stack': 'deployment',
-        'future scope': 'scope',
-        'future': 'scope',
-      };
-
       lines.forEach(line => {
-        // Strip markdown bold/italic markers
         const clean = line.replace(/\*\*/g,'').replace(/\*/g,'').replace(/^#+\s*/,'').trim();
         if (!clean) return;
 
-        // Check if line is a section heading
-        const lower = clean.toLowerCase().replace(/[:：]/g,'').trim();
-        if (sectionMap[lower]) {
-          currentSection = sectionMap[lower];
-          return;
+        // Detect "Title: value" inline
+        const inlineMatch = clean.match(/^title\s*[:：]\s*(.+)/i);
+        if (inlineMatch) { result.title = inlineMatch[1].trim(); titleSet = true; return; }
+
+        // Detect section headings like "Problem Statement:" or "Key Features"
+        const headKey = clean.toLowerCase().replace(/[:：]\s*$/,'').trim();
+        if (MAP[headKey]) { section = MAP[headKey]; return; }
+
+        // Also detect "Problem Statement: inline text"
+        const colonSplit = clean.match(/^([^:]+):\s*(.+)$/);
+        if (colonSplit) {
+          const hk = colonSplit[1].toLowerCase().trim();
+          if (MAP[hk]) {
+            section = MAP[hk];
+            const val = colonSplit[2].trim();
+            if (val && section === 'problem') result.problem = val;
+            return;
+          }
         }
 
-        // First non-section line = title
-        if (!titleSet && !currentSection) {
+        // First non-heading line with no section = title
+        if (!titleSet && !section) {
           result.title = clean.replace(/^\d+[\.\)]\s*/,'');
           titleSet = true;
           return;
         }
 
-        if (!currentSection) return;
+        if (!section) return;
 
-        // Strip list markers
-        const item = clean.replace(/^[-•▪◦*]\s*/, '').replace(/^\d+[\.\)]\s*/,'').trim();
+        const item = clean.replace(/^[-•▪◦*]\s*/,'').replace(/^\d+[\.\)]\s*/,'').trim();
         if (!item) return;
 
-        if (currentSection === 'problem') {
-          result.problem += (result.problem ? ' ' : '') + item;
-        } else if (currentSection === 'features') {
-          result.features.push(item);
-        } else if (currentSection === 'roadmap') {
-          result.roadmap.push(item);
-        } else if (currentSection === 'deployment') {
-          result.deployment.push(item);
-        } else if (currentSection === 'scope') {
-          result.scope.push(item);
-        }
+        if (section === 'title')    { if (!titleSet) { result.title = item; titleSet = true; } }
+        else if (section === 'problem')    result.problem += (result.problem ? ' ' : '') + item;
+        else if (section === 'features')   result.features.push(item);
+        else if (section === 'roadmap')    result.roadmap.push(item);
+        else if (section === 'deployment') result.deployment.push(item);
+        else if (section === 'scope')      result.scope.push(item);
       });
 
       return result;
     }
 
+    /* ── Build a full idea card HTML string ── */
     function buildCard(idea, index, color) {
-      const phases = ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4', 'Phase 5'];
+      const phases = ['Phase 1','Phase 2','Phase 3','Phase 4','Phase 5'];
 
       const featuresHtml = idea.features.length
         ? `<div class="features-grid">
-            ${idea.features.map(f => `
+            ${idea.features.map(f=>`
               <div class="feature-chip">
-                <span class="fc-dot"></span>
-                ${esc(f)}
+                <span class="fc-dot"></span>${esc(f)}
               </div>`).join('')}
-          </div>`
-        : '<p class="problem-text">Features will vary based on your implementation approach.</p>';
+           </div>`
+        : `<p class="problem-text">Features will vary based on your implementation approach.</p>`;
 
       const roadmapHtml = idea.roadmap.length
         ? `<div class="roadmap-list">
-            ${idea.roadmap.map((step, i) => `
+            ${idea.roadmap.map((step,i)=>`
               <div class="roadmap-step">
                 <div class="step-track">
                   <div class="step-dot">${i+1}</div>
                   <div class="step-line"></div>
                 </div>
                 <div class="step-content">
-                  <div class="step-phase">${phases[i] || 'Phase '+(i+1)}</div>
+                  <div class="step-phase">${phases[i]||'Phase '+(i+1)}</div>
                   <div class="step-text">${esc(step)}</div>
                 </div>
               </div>`).join('')}
-          </div>`
-        : '<p class="problem-text">Plan your roadmap in 3-4 agile sprints.</p>';
+           </div>`
+        : `<p class="problem-text">Plan your build in 3–4 agile sprints.</p>`;
 
       const deployHtml = idea.deployment.length
         ? `<div class="tech-row">
-            ${idea.deployment.map(t => `<span class="tech-tag">${esc(t)}</span>`).join('')}
-          </div>`
-        : '<p class="problem-text">Choose your deployment stack based on scale and budget.</p>';
+            ${idea.deployment.map(t=>`<span class="tech-tag">${esc(t)}</span>`).join('')}
+           </div>`
+        : `<p class="problem-text">Choose your deployment stack based on scale and budget.</p>`;
 
       const scopeHtml = idea.scope.length
         ? `<div class="scope-list">
-            ${idea.scope.map(s => `<div class="scope-item">${esc(s)}</div>`).join('')}
-          </div>`
-        : '<p class="problem-text">Extend the product based on user feedback and analytics.</p>';
+            ${idea.scope.map(s=>`<div class="scope-item">${esc(s)}</div>`).join('')}
+           </div>`
+        : `<p class="problem-text">Extend the product based on user feedback and analytics.</p>`;
 
       return `
-        <div class="idea-card" style="--stripe-color:${color}; animation-delay:${index * 0.07}s">
+        <div class="idea-card" style="--stripe-color:${color}; animation-delay:${index*0.07}s">
+
           <div class="card-header">
             <div class="card-left">
               <span class="card-number">IDEA ${String(index+1).padStart(2,'0')}</span>
@@ -862,31 +854,28 @@
               <div class="section-label"><span class="dot"></span>Problem Statement</div>
               <p class="problem-text">${esc(idea.problem || 'A real-world challenge this project solves.')}</p>
             </div>
-
             <div class="section">
               <div class="section-label"><span class="dot"></span>Key Features</div>
               ${featuresHtml}
             </div>
-
             <div class="section">
               <div class="section-label"><span class="dot"></span>Roadmap</div>
               ${roadmapHtml}
             </div>
-
             <div class="section">
-              <div class="section-label"><span class="dot"></span>Deployment & Tech</div>
+              <div class="section-label"><span class="dot"></span>Deployment &amp; Tech</div>
               ${deployHtml}
             </div>
-
             <div class="section">
               <div class="section-label"><span class="dot"></span>Future Scope</div>
               ${scopeHtml}
             </div>
           </div>
-        </div>
-      `;
+
+        </div>`;
     }
 
+    /* ── Toggle card expand/collapse ── */
     function toggleCard(btn) {
       const sections = btn.closest('.idea-card').querySelector('.card-sections');
       const open = sections.classList.toggle('open');
@@ -894,87 +883,42 @@
       btn.textContent = open ? '×' : '+';
     }
 
-    function esc(s) {
-      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
+    /* ── Main generate function ── */
     async function generateIdeas() {
-      const btn   = document.getElementById('genBtn');
-      const loader= document.getElementById('loader');
-      const list  = document.getElementById('projects');
-      const wrap  = document.getElementById('resultsWrap');
-      const badge = document.getElementById('countBadge');
+      const btn    = document.getElementById('genBtn');
+      const loader = document.getElementById('loader');
+      const list   = document.getElementById('projects');
+      const wrap   = document.getElementById('resultsWrap');
+      const badge  = document.getElementById('countBadge');
 
-      list.innerHTML = '';
-      wrap.style.display = 'none';
+      // Reset UI
+      list.innerHTML      = '';
+      wrap.style.display  = 'none';
       loader.classList.add('active');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="shine"></span>Generating…';
+      btn.disabled        = true;
+      btn.innerHTML       = '<span class="shine"></span>Generating…';
 
       try {
-        /* ── Build a prompt that forces structured output ── */
-        const tech     = document.getElementById('tech').value || 'any stack';
-        const domain   = document.getElementById('domain').value || 'general';
-        const level    = document.getElementById('level').value || 'intermediate';
-        const interest = document.getElementById('interest').value || 'software';
+        const tech     = document.getElementById('tech').value.trim()     || 'any stack';
+        const domain   = document.getElementById('domain').value.trim()   || 'general';
+        const level    = document.getElementById('level').value.trim()    || 'intermediate';
+        const interest = document.getElementById('interest').value.trim() || 'software';
 
-        const systemPrompt = `You are an expert software project advisor. When given inputs, generate exactly 5 project ideas.
-
-  For EACH idea, use EXACTLY this format (no markdown bold, no extra text):
-
-  [IDEA]
-  Title: <concise project title>
-  Problem Statement: <2-3 sentences describing the real-world problem>
-  Key Features:
-  - <feature 1>
-  - <feature 2>
-  - <feature 3>
-  - <feature 4>
-  - <feature 5>
-  Roadmap:
-  - <Phase 1 description>
-  - <Phase 2 description>
-  - <Phase 3 description>
-  - <Phase 4 description>
-  Deployment:
-  - <tech/platform 1>
-  - <tech/platform 2>
-  - <tech/platform 3>
-  - <tech/platform 4>
-  Future Scope:
-  - <future enhancement 1>
-  - <future enhancement 2>
-  - <future enhancement 3>
-  [/IDEA]
-
-  Generate exactly 5 ideas now.`;
-
-        const userMsg = `Tech Stack: ${tech}
-  Domain: ${domain}
-  Experience Level: ${level}
-  Interest Area: ${interest}`;
-
-        let text = '';
-
-        const backendRes = await fetch('/api/generate', {
-          method: 'POST',
+        // Call your backend — only sends the 4 fields it expects
+        const res = await fetch('/api/generate', {
+          method:  'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            techStack: tech,
-            domain: domain,
-            level: level,
-            interest: interest
-          })
+          body: JSON.stringify({ techStack: tech, domain, level, interest })
         });
 
-        if (!backendRes.ok) {
-          const errText = await backendRes.text().catch(() => 'Unknown error');
-          throw new Error(`Server error ${backendRes.status}: ${errText}`);
+        if (!res.ok) {
+          const errText = await res.text().catch(() => 'No response body');
+          throw new Error(`Server responded with ${res.status}: ${errText}`);
         }
 
-        text = await backendRes.text();
+        const text = await res.text();
 
-        /* ── Parse [IDEA]...[/IDEA] blocks ── */
+        // Try [IDEA]...[/IDEA] blocks first
         let ideas = [];
         const blockRe = /\[IDEA\]([\s\S]*?)\[\/IDEA\]/gi;
         let m;
@@ -982,55 +926,71 @@
           ideas.push(parseIdea(m[1]));
         }
 
-        /* Fallback: split by numbered list if no blocks found */
+        // Fallback: split by numbered list
         if (!ideas.length) {
-          ideas = text.split(/\n(?=\d+[\.\)])/g)
+          ideas = text
+            .split(/\n(?=\d+[\.\)])/g)
             .map(s => s.trim()).filter(Boolean)
             .map(s => parseIdea(s));
         }
 
+        // Fallback: treat entire response as one idea
+        if (!ideas.length && text.trim()) {
+          ideas = [parseIdea(text)];
+        }
+
         loader.classList.remove('active');
-        btn.disabled = false;
+        btn.disabled  = false;
         btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
 
         if (!ideas.length) return;
 
         wrap.style.display = 'block';
-        badge.textContent = ideas.length + ' generated';
+        badge.textContent  = ideas.length + ' generated';
 
-        list.innerHTML = ideas.map((idea, i) =>
-          buildCard(idea, i, COLORS[i % COLORS.length])
-        ).join('');
+        list.innerHTML = ideas
+          .map((idea, i) => buildCard(idea, i, COLORS[i % COLORS.length]))
+          .join('');
 
-        /* Auto-open first card */
+        // Auto-open first card
         const firstBtn = list.querySelector('.card-expand-btn');
         if (firstBtn) toggleCard(firstBtn);
 
         wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      } catch(e) {
+      } catch (err) {
         loader.classList.remove('active');
-        btn.disabled = false;
+        btn.disabled  = false;
         btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
-        console.error('IdeaForge error:', e);
+        console.error('IdeaForge error:', err);
 
         const wrap2  = document.getElementById('resultsWrap');
         const list2  = document.getElementById('projects');
         const badge2 = document.getElementById('countBadge');
+
         wrap2.style.display = 'block';
-        badge2.textContent = 'error';
+        badge2.textContent  = 'error';
         list2.innerHTML = `
-          <div style="background:#fff8f6;border:1px solid #fcd5c5;border-radius:16px;padding:28px 26px;display:flex;gap:14px;align-items:flex-start;font-family:'Inter',sans-serif;">
+          <div style="
+            background:#fff8f6; border:1px solid #fcd5c5;
+            border-radius:16px; padding:28px 26px;
+            display:flex; gap:14px; align-items:flex-start;
+            font-family:'Inter',sans-serif;
+          ">
             <span style="font-size:24px;flex-shrink:0;line-height:1">⚠️</span>
             <div>
-              <div style="font-weight:600;font-size:15px;color:#7a3010;margin-bottom:6px">Could not generate ideas</div>
-              <div style="font-size:13px;line-height:1.65;color:#9a5030;margin-bottom:14px">
-                ${e.message ? '<strong>Error:</strong> ' + e.message : 'The server could not be reached. Make sure your <code style=\"background:#fde8df;padding:1px 5px;border-radius:4px\">/api/generate</code> backend is running on Render.'}
+              <div style="font-weight:600;font-size:15px;color:#7a3010;margin-bottom:6px">
+                Could not generate ideas
               </div>
-              <div style="font-size:12px;color:#b87050;line-height:1.6">
+              <div style="font-size:13px;line-height:1.65;color:#9a5030;margin-bottom:14px">
+                ${err.message
+                  ? '<strong>Error:</strong> ' + esc(err.message)
+                  : 'The server could not be reached. Make sure your backend is running on Render.'}
+              </div>
+              <div style="font-size:12px;color:#b87050;line-height:1.8">
                 <strong>Common fixes:</strong><br>
-                · Free tier Render services sleep after inactivity — wait 30s and retry<br>
-                · Check your API key is set in Render environment variables<br>
+                · Free-tier Render services sleep after inactivity — wait 30s and retry<br>
+                · Confirm your API key is set in Render → Environment Variables<br>
                 · Open browser console (F12) for the full error trace
               </div>
             </div>
@@ -1038,13 +998,22 @@
       }
     }
 
+    /* ── Keyboard shortcut: Enter to generate ── */
     document.addEventListener('keydown', e => {
       if (e.key === 'Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
     });
 
+    /* ── Footer scroll helpers ── */
     function scrollToTop(e) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function scrollToHero(e
+    function scrollToHero(e) {
+      e.preventDefault();
+      document.querySelector('.hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+</script>
+
+</body>
+</html>
