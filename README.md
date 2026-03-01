@@ -2,7 +2,7 @@
 
 An AI-powered web application that generates innovative, domain-specific project ideas based on user preferences like tech stack, difficulty level, and area of interest.
 
-Built with a modern full-stack architecture using Spring Boot + Next.js and powered by OpenRouter AI.
+Built with a modern full-stack architecture using Spring Boot + HTML,CSS,JS and powered by OpenRouter AI.
 
 ---
 
@@ -11,7 +11,6 @@ Built with a modern full-stack architecture using Spring Boot + Next.js and powe
 - 🤖 AI-powered project idea generation
 - 🎯 Domain-specific suggestions (AI, Web, Blockchain, etc.)
 - 📊 Difficulty-based filtering (Beginner / Intermediate / Advanced)
-- 🎨 Professional Hackathon-Ready UI (Next.js + Tailwind)
 - 📱 Fully Responsive (Mobile Compatible)
 - ⚡ Fast API Integration using OpenRouter
 - 📋 Copy All feature
