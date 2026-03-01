@@ -2,228 +2,645 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>IdeaForge AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+
         :root {
-          --bg: #f8f6f1;
-          --surface: #ffffff;
-          --border: #e4dfd4;
-          --border2: #cdc7bc;
-          --ink: #1a1714;
-          --body: #5a5249;
-          --muted: #9e9488;
-          --accent: #d4601a;
-          --accent2: #2563eb;
-          --card-shadow: 0 2px 10px rgba(0,0,0,.08);
-          --card-shadow-hover: 0 4px 16px rgba(0,0,0,.12);
+          --bg:       #f7f5f0;
+          --surface:  #ffffff;
+          --border:   #e3ddd5;
+          --border2:  #ccc5bb;
+          --ink:      #18150f;
+          --ink2:     #3a342c;
+          --body:     #56504a;
+          --muted:    #9b9389;
+          --accent:   #c75b14;
+          --blue:     #1d4ed8;
+          --green:    #15803d;
+          --purple:   #6d28d9;
+          --rose:     #be185d;
+          --amber:    #b45309;
+          --teal:     #0f766e;
+
+          --sh: 0 1px 4px rgba(0,0,0,.06), 0 4px 20px rgba(0,0,0,.06);
+          --sh2: 0 2px 10px rgba(0,0,0,.08), 0 20px 48px rgba(0,0,0,.09);
         }
 
-        *, *::before, *::after {margin:0;padding:0;box-sizing:border-box;}
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
         body {
           background: var(--bg);
-          font-family:'Inter', sans-serif;
           color: var(--ink);
-          min-height:100vh;
-          line-height:1.6;
+          font-family: 'Inter', sans-serif;
+          min-height: 100dvh;
+          overflow-x: hidden;
         }
 
-        /* NAVIGATION */
+        /* ── NAV ── */
         nav {
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          padding:16px 40px;
-          background: rgba(248,246,241,0.9);
+          position:sticky; top:0; z-index:100;
+          display:flex; align-items:center; justify-content:space-between;
+          padding: clamp(14px,2.2vw,18px) clamp(20px,5vw,60px);
+          padding-left:  max(clamp(20px,5vw,60px), env(safe-area-inset-left));
+          padding-right: max(clamp(20px,5vw,60px), env(safe-area-inset-right));
+          background: rgba(247,245,240,0.9);
           backdrop-filter: blur(20px);
-          border-bottom:1px solid var(--border);
-          position:sticky;
-          top:0;
-          z-index:10;
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid var(--border);
         }
+
         .logo {
-          font-weight:700;
-          font-size:18px;
+          display:flex; align-items:center; gap:9px;
+          font-family:'Syne', sans-serif;
+          font-weight:800; font-size:clamp(14px,2vw,16px);
+          color:var(--ink); letter-spacing:-.3px;
           text-decoration:none;
-          color: var(--ink);
-          display:flex;
-          align-items:center;
-          gap:8px;
         }
+
         .logo-mark {
-          background: var(--ink);
-          color:#fff;
-          font-size:14px;
           width:30px; height:30px;
+          background:var(--ink);
+          border-radius:8px;
           display:grid; place-items:center;
-          border-radius:6px;
+          font-size:13px; flex-shrink:0;
         }
 
-        /* HERO */
-        .hero {
-          text-align:center;
-          padding:80px 20px 40px;
-        }
-        .hero-eyebrow {
+        .nav-chip {
           font-family:'JetBrains Mono', monospace;
-          font-size:12px;
-          color:var(--muted);
-          letter-spacing:2px;
-          text-transform:uppercase;
-          margin-bottom:16px;
-        }
-        .hero h1 {
-          font-weight:700;
-          font-size: clamp(32px, 6vw, 64px);
-          color: var(--ink);
-        }
-        .hero em { color: var(--accent); font-style:normal; }
-        .hero-sub {
-          font-size:16px;
-          max-width:500px;
-          margin:12px auto 0;
-          color: var(--body);
+          font-size:clamp(9px,1.3vw,10px);
+          letter-spacing:.5px;
+          color:var(--accent);
+          border:1px solid rgba(199,91,20,.28);
+          border-radius:100px; padding:3px 11px;
+          white-space:nowrap;
         }
 
-        /* FORM */
-        .generator { max-width:700px; margin:40px auto; padding:0 20px; }
-        .form-card {
-          background: var(--surface);
-          border:1px solid var(--border);
-          border-radius:16px;
-          padding:24px;
-          box-shadow: var(--card-shadow);
+        /* ── HERO ── */
+        .hero {
+          position:relative; z-index:5;
+          text-align:center;
+          padding: clamp(52px,9vw,100px) clamp(20px,5vw,40px) clamp(36px,5vw,52px);
         }
+
+        .hero-eyebrow {
+          display:inline-block;
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,11px);
+          letter-spacing:2.5px; text-transform:uppercase;
+          color:var(--muted); margin-bottom:clamp(16px,3vw,24px);
+          opacity:0; animation:up .6s ease .1s forwards;
+        }
+
+        .hero h1 {
+          font-family:'Syne', sans-serif;
+          font-weight:800;
+          font-size:clamp(34px,7.5vw,80px);
+          line-height:1.0; letter-spacing:-.5px;
+          color:var(--ink);
+          opacity:0; animation:up .6s ease .2s forwards;
+        }
+
+        .hero h1 .hi { color:var(--accent); }
+
+        .hero-sub {
+          margin-top:clamp(14px,2.5vw,20px);
+          font-size:clamp(14px,2vw,16px);
+          line-height:1.65; font-weight:400;
+          color:var(--body);
+          max-width:460px; margin-inline:auto;
+          opacity:0; animation:up .6s ease .3s forwards;
+        }
+
+        /* ── FORM ── */
+        .generator {
+          position:relative; z-index:5;
+          width:min(680px,100%);
+          margin:0 auto clamp(52px,8vw,76px);
+          padding:0 clamp(16px,4vw,20px);
+          padding-left:  max(clamp(16px,4vw,20px), env(safe-area-inset-left));
+          padding-right: max(clamp(16px,4vw,20px), env(safe-area-inset-right));
+          opacity:0; animation:up .6s ease .4s forwards;
+        }
+
+        .form-card {
+          background:var(--surface);
+          border:1px solid var(--border);
+          border-radius:clamp(16px,3vw,22px);
+          padding:clamp(22px,5vw,36px);
+          box-shadow:var(--sh);
+        }
+
         .fields-grid {
           display:grid;
-          gap:12px;
           grid-template-columns:1fr 1fr;
-          margin-bottom:16px;
+          gap:clamp(10px,2vw,14px);
+          margin-bottom:clamp(10px,2vw,14px);
         }
-        @media(max-width:500px){ .fields-grid{ grid-template-columns:1fr; } }
+
+        @media(max-width:460px){ .fields-grid { grid-template-columns:1fr; } }
+
         .field label {
           display:block;
-          font-weight:600;
-          font-size:14px;
-          margin-bottom:6px;
+          font-size:clamp(10px,1.5vw,11px);
+          font-weight:600; letter-spacing:.3px;
+          color:var(--ink2); margin-bottom:7px;
         }
+
         .field input {
           width:100%;
-          padding:10px 12px;
+          padding:clamp(11px,2vw,13px) clamp(12px,2.5vw,14px);
+          background:var(--bg);
           border:1px solid var(--border);
           border-radius:10px;
-          font-size:14px;
-          transition:border-color .2s;
+          color:var(--ink);
+          font-family:'Inter', sans-serif;
+          font-size:16px; font-weight:400;
+          transition:border-color .2s, box-shadow .2s, background .2s;
+          -webkit-appearance:none; appearance:none;
+          touch-action:manipulation;
         }
-        .field input:focus { outline:none; border-color:var(--accent2); }
+
+        @media(min-width:769px){ .field input { font-size:14px; } }
+        .field input::placeholder { color:var(--muted); }
+        .field input:focus {
+          outline:none;
+          border-color:var(--blue);
+          background:#fff;
+          box-shadow:0 0 0 3px rgba(29,78,216,.10);
+        }
+
+        .form-sep { height:1px; background:var(--border); margin:clamp(16px,3vw,22px) 0; }
 
         .gen-btn {
-          width:100%;
-          padding:14px;
-          font-weight:600;
-          font-size:16px;
-          border:none;
-          border-radius:12px;
+          position:relative; width:100%; overflow:hidden;
+          padding:clamp(13px,2.5vw,16px);
+          background:var(--ink);
+          border:none; border-radius:11px;
           color:#fff;
-          background: var(--ink);
-          cursor:pointer;
-          position:relative;
+          font-family:'Syne', sans-serif;
+          font-weight:700; font-size:clamp(14px,2.2vw,15px);
+          letter-spacing:.2px; cursor:pointer;
+          min-height:50px;
+          transition:background .2s, transform .15s, box-shadow .15s;
+          -webkit-tap-highlight-color:transparent;
+          touch-action:manipulation;
         }
-        .gen-btn:hover { background:#2a2420; }
-        .gen-btn:disabled { opacity:0.5; cursor:not-allowed; }
 
-        /* LOADER */
-        .loader { display:none; padding:16px 0; }
+        .gen-btn .shine {
+          position:absolute; inset:0;
+          background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.09),transparent 70%);
+          transform:translateX(-100%); transition:transform .5s;
+        }
+
+        @media(hover:hover){
+          .gen-btn:hover { background:#2c2419; box-shadow:0 6px 24px rgba(0,0,0,.22); transform:translateY(-1px); }
+          .gen-btn:hover .shine { transform:translateX(100%); }
+        }
+        .gen-btn:active { transform:scale(.985); }
+        .gen-btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+
+        /* ── LOADER ── */
+        .loader { display:none; padding:22px 0 4px; }
         .loader.active { display:block; }
-        .loader-track { width:100%; height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:8px; }
-        .loader-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); animation:sweep 1.8s infinite; }
-        @keyframes sweep {0%{width:0}50%{width:60%}100%{width:0}}
-        .loader-text { text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
 
-        /* RESULTS */
-        .results-wrap { max-width:900px; margin:40px auto; padding:0 20px; }
-        .results-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-        .results-eyebrow { font-family:'JetBrains Mono', monospace; font-size:12px; text-transform:uppercase; color:var(--muted); }
-        .results-rule { flex:1; height:1px; background:var(--border); }
-        .results-count { font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); border:1px solid rgba(212,96,26,.25); border-radius:100px; padding:2px 10px; }
-
-        /* CARDS */
-        .cards-list { display:flex; flex-direction:column; gap:16px; }
-        .idea-card {
-          display:flex; border-radius:16px; overflow:hidden;
-          background: var(--surface);
-          border:1px solid var(--border);
-          box-shadow:var(--card-shadow);
-          cursor:pointer;
-          transition: all 0.2s ease;
+        .loader-track {
+          width:100%; height:2px;
+          background:var(--border); border-radius:2px; overflow:hidden;
+          margin-bottom:12px;
         }
-        .idea-card:hover { box-shadow: var(--card-shadow-hover); transform:translateY(-2px); }
-        .card-stripe { width:4px; background:var(--stripe-color,var(--accent)); flex-shrink:0; }
-        .card-body { padding:20px; flex:1; display:flex; flex-direction:column; gap:10px; }
-        .card-top { display:flex; justify-content:space-between; align-items:center; }
-        .card-badge { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--stripe-color,var(--accent)); }
-        .card-title { font-weight:700; font-size:18px; color: var(--ink); }
-        .card-desc { font-size:14px; color: var(--body); }
-        .card-desc strong { font-weight:700; }
-        .card-tags { display:flex; flex-wrap:wrap; gap:6px; }
-        .ktag { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--body); background:#f0ece4; border-radius:6px; padding:2px 8px; }
 
-        /* FOOTER */
-        footer { padding:40px 20px; background:#f2efe8; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; }
-        .footer-left, .footer-right { display:flex; flex-direction:column; gap:8px; }
-        .footer-logo { font-weight:700; text-decoration:none; color: var(--ink); display:flex; align-items:center; gap:8px; }
-        .footer-copy { font-size:12px; color:var(--muted); }
-        .footer-link { font-family:'JetBrains Mono', monospace; font-size:11px; text-decoration:none; color:var(--body); margin-top:4px; }
-        .footer-link:hover { color: var(--accent); }
+        .loader-fill {
+          height:100%;
+          background:linear-gradient(90deg,var(--accent),var(--blue));
+          border-radius:2px;
+          animation:sweep 1.9s ease-in-out infinite;
+        }
 
-        /* KEYFRAMES */
-        @keyframes up { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+        @keyframes sweep {
+          0%  { width:0%;  margin-left:0;    }
+          50% { width:55%; margin-left:20%;  }
+          100%{ width:0%;  margin-left:100%; }
+        }
+
+        .loader-label {
+          text-align:center;
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,11px);
+          color:var(--muted); letter-spacing:1px;
+          animation:breathe 1.7s ease-in-out infinite;
+        }
+
+        @keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+        /* ── RESULTS ── */
+        .results-wrap {
+          position:relative; z-index:5;
+          width:min(900px,100%);
+          margin:0 auto 0;
+          padding:0 clamp(16px,4vw,20px);
+          padding-left:  max(clamp(16px,4vw,20px), env(safe-area-inset-left));
+          padding-right: max(clamp(16px,4vw,20px), env(safe-area-inset-right));
+        }
+
+        .results-header {
+          display:flex; align-items:center; gap:14px;
+          margin-bottom:clamp(22px,4vw,34px);
+        }
+
+        .results-eyebrow {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,11px);
+          letter-spacing:2px; text-transform:uppercase;
+          color:var(--muted); white-space:nowrap;
+        }
+
+        .results-rule { flex:1; height:1px; background:var(--border); }
+
+        .results-count {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.4vw,10px);
+          color:var(--accent);
+          border:1px solid rgba(199,91,20,.25);
+          border-radius:100px; padding:3px 11px;
+          white-space:nowrap;
+        }
+
+        /* ── IDEA CARDS ── */
+        .cards-list {
+          display:flex; flex-direction:column;
+          gap:clamp(20px,3vw,28px);
+        }
+
+        .idea-card {
+          background:var(--surface);
+          border:1px solid var(--border);
+          border-radius:clamp(14px,2.5vw,20px);
+          overflow:hidden;
+          box-shadow:var(--sh);
+          opacity:0; transform:translateY(20px);
+          animation:cardIn .55s cubic-bezier(.22,.68,0,1.15) forwards;
+          transition:border-color .22s, box-shadow .22s, transform .22s;
+        }
+
+        @media(hover:hover){
+          .idea-card:hover {
+            border-color:var(--border2);
+            box-shadow:var(--sh2);
+            transform:translateY(-2px);
+          }
+        }
+
+        /* card top bar */
+        .card-header {
+          display:flex; align-items:center; justify-content:space-between; gap:12px;
+          padding:clamp(18px,3.5vw,24px) clamp(20px,4vw,28px) clamp(14px,2.5vw,18px);
+          border-bottom:1px solid var(--border);
+          background:var(--bg);
+        }
+
+        .card-left { display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
+
+        .card-number {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,12px);
+          font-weight:500; letter-spacing:1px;
+          color:var(--surface);
+          background:var(--stripe-color, var(--accent));
+          border-radius:7px; padding:4px 10px;
+          flex-shrink:0; white-space:nowrap;
+        }
+
+        .card-title {
+          font-family:'Syne', sans-serif;
+          font-weight:700;
+          font-size:clamp(16px,2.8vw,21px);
+          line-height:1.25; letter-spacing:-.2px;
+          color:var(--ink);
+        }
+
+        .card-expand-btn {
+          width:32px; height:32px;
+          border:1px solid var(--border);
+          border-radius:8px;
+          background:none; cursor:pointer;
+          display:grid; place-items:center;
+          font-size:14px; color:var(--muted);
+          flex-shrink:0;
+          transition:border-color .2s, color .2s, transform .25s;
+          -webkit-tap-highlight-color:transparent;
+        }
+
+        @media(hover:hover){
+          .card-expand-btn:hover { border-color:var(--stripe-color,var(--accent)); color:var(--stripe-color,var(--accent)); }
+        }
+
+        .card-expand-btn.open { transform:rotate(45deg); }
+
+        /* card sections body */
+        .card-sections {
+          display:none;
+          padding:0 clamp(20px,4vw,28px) clamp(20px,3.5vw,26px);
+        }
+
+        .card-sections.open { display:block; }
+
+        .section {
+          padding:clamp(16px,3vw,22px) 0;
+          border-bottom:1px solid var(--border);
+        }
+
+        .section:last-child { border-bottom:none; }
+
+        .section-label {
+          display:flex; align-items:center; gap:8px;
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.4vw,10px);
+          font-weight:500; letter-spacing:1.8px; text-transform:uppercase;
+          color:var(--stripe-color, var(--accent));
+          margin-bottom:clamp(10px,1.8vw,14px);
+        }
+
+        .section-label .dot {
+          width:6px; height:6px;
+          background:var(--stripe-color, var(--accent));
+          border-radius:50%; flex-shrink:0;
+        }
+
+        /* Problem statement */
+        .problem-text {
+          font-size:clamp(13.5px,1.8vw,15px);
+          line-height:1.75; color:var(--body);
+          font-weight:400;
+        }
+
+        /* Key features */
+        .features-grid {
+          display:grid;
+          grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+          gap:clamp(8px,1.5vw,10px);
+        }
+
+        .feature-chip {
+          display:flex; align-items:flex-start; gap:8px;
+          background:var(--bg);
+          border:1px solid var(--border);
+          border-radius:9px;
+          padding:clamp(10px,1.8vw,12px) clamp(12px,2vw,14px);
+          font-size:clamp(12px,1.6vw,13px);
+          line-height:1.45; color:var(--ink2);
+          font-weight:500;
+        }
+
+        .feature-chip .fc-dot {
+          width:7px; height:7px;
+          background:var(--stripe-color,var(--accent));
+          border-radius:50%; flex-shrink:0;
+          margin-top:5px;
+        }
+
+        /* Roadmap */
+        .roadmap-list {
+          display:flex; flex-direction:column; gap:0;
+        }
+
+        .roadmap-step {
+          display:flex; gap:clamp(12px,2vw,16px);
+          align-items:flex-start;
+        }
+
+        .step-track {
+          display:flex; flex-direction:column; align-items:center;
+          flex-shrink:0;
+        }
+
+        .step-dot {
+          width:28px; height:28px;
+          border-radius:50%;
+          background:color-mix(in srgb, var(--stripe-color,var(--accent)) 12%, transparent);
+          border:2px solid var(--stripe-color,var(--accent));
+          display:grid; place-items:center;
+          font-family:'JetBrains Mono', monospace;
+          font-size:10px; font-weight:500;
+          color:var(--stripe-color,var(--accent));
+          flex-shrink:0;
+        }
+
+        .step-line {
+          width:2px; flex:1;
+          background:var(--border);
+          min-height:18px;
+        }
+
+        .roadmap-step:last-child .step-line { display:none; }
+
+        .step-content {
+          padding-bottom:clamp(14px,2.5vw,18px);
+          flex:1;
+        }
+
+        .step-phase {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.3vw,10px);
+          letter-spacing:1px; text-transform:uppercase;
+          color:var(--muted); margin-bottom:4px;
+        }
+
+        .step-text {
+          font-size:clamp(13px,1.7vw,14px);
+          line-height:1.6; color:var(--body);
+          font-weight:400;
+        }
+
+        /* Tech tags row */
+        .tech-row {
+          display:flex; flex-wrap:wrap; gap:7px;
+        }
+
+        .tech-tag {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.3vw,10px);
+          letter-spacing:.5px;
+          color:var(--body);
+          background:var(--bg);
+          border:1px solid var(--border);
+          border-radius:6px; padding:4px 10px;
+        }
+
+        /* Future scope */
+        .scope-list {
+          display:flex; flex-direction:column; gap:8px;
+        }
+
+        .scope-item {
+          display:flex; align-items:flex-start; gap:10px;
+          font-size:clamp(13px,1.7vw,14px);
+          line-height:1.6; color:var(--body);
+        }
+
+        .scope-item::before {
+          content:'→';
+          color:var(--stripe-color,var(--accent));
+          font-weight:600; flex-shrink:0; margin-top:1px;
+          font-size:13px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+          position:relative; z-index:5;
+          margin-top:clamp(60px,8vw,100px);
+          padding:clamp(28px,5vw,44px) clamp(20px,5vw,60px);
+          padding-left:  max(clamp(20px,5vw,60px), env(safe-area-inset-left));
+          padding-right: max(clamp(20px,5vw,60px), env(safe-area-inset-right));
+          padding-bottom:max(clamp(28px,5vw,44px), env(safe-area-inset-bottom));
+          border-top:1px solid var(--border);
+          background:var(--surface);
+        }
+
+        .footer-inner {
+          max-width:900px; margin-inline:auto;
+          display:flex; flex-direction:column; gap:clamp(20px,3vw,28px);
+        }
+
+        .footer-top {
+          display:flex; align-items:flex-start; justify-content:space-between;
+          gap:clamp(20px,4vw,40px); flex-wrap:wrap;
+        }
+
+        .footer-brand { display:flex; flex-direction:column; gap:8px; }
+
+        .footer-logo {
+          display:flex; align-items:center; gap:9px;
+          font-family:'Syne', sans-serif;
+          font-weight:800; font-size:16px;
+          color:var(--ink); letter-spacing:-.3px;
+        }
+
+        .footer-logo-mark {
+          width:28px; height:28px;
+          background:var(--ink); border-radius:7px;
+          display:grid; place-items:center;
+          font-size:13px; flex-shrink:0;
+        }
+
+        .footer-tagline {
+          font-size:13px; color:var(--muted);
+          line-height:1.5; max-width:240px;
+        }
+
+        .footer-links {
+          display:flex; gap:clamp(28px,5vw,56px); flex-wrap:wrap;
+        }
+
+        .footer-col { display:flex; flex-direction:column; gap:10px; }
+
+        .footer-col-label {
+          font-family:'JetBrains Mono', monospace;
+          font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+          color:var(--muted); margin-bottom:2px;
+        }
+
+        .footer-col a {
+          font-size:13px; color:var(--body);
+          text-decoration:none; font-weight:400;
+          transition:color .15s;
+        }
+
+        @media(hover:hover){ .footer-col a:hover { color:var(--ink); } }
+
+        .footer-bottom {
+          display:flex; align-items:center; justify-content:space-between;
+          gap:12px; flex-wrap:wrap;
+          padding-top:clamp(16px,2.5vw,22px);
+          border-top:1px solid var(--border);
+        }
+
+        .footer-copy {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.4vw,10px);
+          color:var(--muted); letter-spacing:.3px;
+        }
+
+        .footer-made {
+          font-size:12px; color:var(--muted);
+          display:flex; align-items:center; gap:5px;
+        }
+
+        .footer-made span { color:var(--accent); }
+
+        /* ── KEYFRAMES ── */
+        @keyframes up {
+          from { opacity:0; transform:translateY(20px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes cardIn {
+          to { opacity:1; transform:translateY(0); }
+        }
+
     </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-    <a class="logo" href="#"><div class="logo-mark">⚡</div>IdeaForge</a>
+    <a class="logo" href="#">
+        <div class="logo-mark">⚡</div>
+        IdeaForge
+    </a>
+    <span class="nav-chip">AI · v2.0</span>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
     <div class="hero-eyebrow">Project Idea Generator</div>
-    <h1>Ideas worth <em>building</em></h1>
-    <p class="hero-sub">Enter your stack, domain, and experience level. Get clean, professional project ideas instantly.</p>
+    <h1>Ideas worth<br><span class="hi">building</span></h1>
+    <p class="hero-sub">Tell us your stack, domain, and level. Get complete, structured project ideas — ready to build or pitch.</p>
 </div>
 
+<!-- FORM -->
 <div class="generator">
     <div class="form-card">
         <div class="fields-grid">
             <div class="field">
                 <label>Tech Stack</label>
-                <input type="text" id="tech" placeholder="Java, MERN, Python…" />
+                <input type="text" id="tech" placeholder="Java Fullstack, MERN…"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
             <div class="field">
                 <label>Domain</label>
-                <input type="text" id="domain" placeholder="Fintech, Health, EdTech…" />
+                <input type="text" id="domain" placeholder="Fintech, Health, EdTech…"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
         </div>
         <div class="fields-grid">
             <div class="field">
                 <label>Experience Level</label>
-                <input type="text" id="level" placeholder="Beginner / Mid / Senior" />
+                <input type="text" id="level" placeholder="Beginner / Mid / Senior"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
             <div class="field">
                 <label>Interest Area</label>
-                <input type="text" id="interest" placeholder="ML, APIs, Real-time…" />
+                <input type="text" id="interest" placeholder="ML, APIs, Real-time…"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
             </div>
         </div>
-        <button class="gen-btn" id="genBtn" onclick="generateIdeas()">⚡ Generate Project Ideas</button>
+        <div class="form-sep"></div>
+        <button class="gen-btn" id="genBtn" onclick="generateIdeas()">
+            <span class="shine"></span>
+            ⚡ &nbsp;Generate Project Ideas
+        </button>
         <div class="loader" id="loader">
             <div class="loader-track"><div class="loader-fill"></div></div>
-            <div class="loader-text">FORGING IDEAS…</div>
+            <div class="loader-label">FORGING IDEAS…</div>
         </div>
     </div>
 </div>
 
+<!-- RESULTS -->
 <div class="results-wrap" id="resultsWrap" style="display:none">
     <div class="results-header">
         <span class="results-eyebrow">Ideas</span>
@@ -233,97 +650,341 @@
     <div class="cards-list" id="projects"></div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-    <div class="footer-left">
-        <a href="#" class="footer-logo"><span>⚡</span> IdeaForge AI</a>
-        <div class="footer-copy">&copy; 2026 Crafted for builders.</div>
-    </div>
-    <div class="footer-right">
-        <a href="#" class="footer-link">System Operational</a>
-        <a href="#" class="footer-link">GitHub</a>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-mark">⚡</div>
+                    IdeaForge
+                </div>
+                <p class="footer-tagline">AI-powered project idea generation for developers at every level.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <span class="footer-col-label">Product</span>
+                    <a href="#">Generator</a>
+                    <a href="#">How it works</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-label">Resources</span>
+                    <a href="#">Documentation</a>
+                    <a href="#">API</a>
+                    <a href="#">GitHub</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-label">Company</span>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 IdeaForge. All rights reserved.</span>
+            <div class="footer-made">Made with <span>♥</span> for developers</div>
+        </div>
     </div>
 </footer>
 
 <script>
-    const STRIPES = ['#d4601a','#2563eb','#059669','#7c3aed','#db2777','#b45309'];
-    const KEYWORDS = ['AI','Machine Learning','Computer Vision','NLP','Blockchain','IoT','Real-time','WebSockets','OAuth','Payments','Analytics','Dashboard','GraphQL','REST API','Firebase','Docker','Cloud','Microservices','Recommender','Search','Chat','Maps','AR','Mobile','PWA','Web3'];
+    const COLORS = ['#c75b14','#1d4ed8','#15803d','#6d28d9','#be185d','#0f766e'];
 
-    function extractTags(text){ return KEYWORDS.filter(k => text.toLowerCase().includes(k.toLowerCase())).slice(0,5); }
-    function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
 
-    async function generateIdeas(){
-      const btn = document.getElementById('genBtn');
-      const loader = document.getElementById('loader');
-      const list = document.getElementById('projects');
-      const wrap = document.getElementById('resultsWrap');
+    /* ── Parse structured sections from one idea block ── */
+    function parseIdea(raw) {
+      const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+      const result = {
+        title: '',
+        problem: '',
+        features: [],
+        roadmap: [],
+        deployment: [],
+        scope: []
+      };
+
+      let currentSection = null;
+      let titleSet = false;
+
+      const sectionMap = {
+        'problem': 'problem',
+        'problem statement': 'problem',
+        'key features': 'features',
+        'features': 'features',
+        'roadmap': 'roadmap',
+        'deployment': 'deployment',
+        'tech stack': 'deployment',
+        'future scope': 'scope',
+        'future': 'scope',
+      };
+
+      lines.forEach(line => {
+        // Strip markdown bold/italic markers
+        const clean = line.replace(/\*\*/g,'').replace(/\*/g,'').replace(/^#+\s*/,'').trim();
+        if (!clean) return;
+
+        // Check if line is a section heading
+        const lower = clean.toLowerCase().replace(/[:：]/g,'').trim();
+        if (sectionMap[lower]) {
+          currentSection = sectionMap[lower];
+          return;
+        }
+
+        // First non-section line = title
+        if (!titleSet && !currentSection) {
+          result.title = clean.replace(/^\d+[\.\)]\s*/,'');
+          titleSet = true;
+          return;
+        }
+
+        if (!currentSection) return;
+
+        // Strip list markers
+        const item = clean.replace(/^[-•▪◦*]\s*/, '').replace(/^\d+[\.\)]\s*/,'').trim();
+        if (!item) return;
+
+        if (currentSection === 'problem') {
+          result.problem += (result.problem ? ' ' : '') + item;
+        } else if (currentSection === 'features') {
+          result.features.push(item);
+        } else if (currentSection === 'roadmap') {
+          result.roadmap.push(item);
+        } else if (currentSection === 'deployment') {
+          result.deployment.push(item);
+        } else if (currentSection === 'scope') {
+          result.scope.push(item);
+        }
+      });
+
+      return result;
+    }
+
+    function buildCard(idea, index, color) {
+      const phases = ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4', 'Phase 5'];
+
+      const featuresHtml = idea.features.length
+        ? `<div class="features-grid">
+            ${idea.features.map(f => `
+              <div class="feature-chip">
+                <span class="fc-dot"></span>
+                ${esc(f)}
+              </div>`).join('')}
+          </div>`
+        : '<p class="problem-text">Features will vary based on your implementation approach.</p>';
+
+      const roadmapHtml = idea.roadmap.length
+        ? `<div class="roadmap-list">
+            ${idea.roadmap.map((step, i) => `
+              <div class="roadmap-step">
+                <div class="step-track">
+                  <div class="step-dot">${i+1}</div>
+                  <div class="step-line"></div>
+                </div>
+                <div class="step-content">
+                  <div class="step-phase">${phases[i] || 'Phase '+(i+1)}</div>
+                  <div class="step-text">${esc(step)}</div>
+                </div>
+              </div>`).join('')}
+          </div>`
+        : '<p class="problem-text">Plan your roadmap in 3-4 agile sprints.</p>';
+
+      const deployHtml = idea.deployment.length
+        ? `<div class="tech-row">
+            ${idea.deployment.map(t => `<span class="tech-tag">${esc(t)}</span>`).join('')}
+          </div>`
+        : '<p class="problem-text">Choose your deployment stack based on scale and budget.</p>';
+
+      const scopeHtml = idea.scope.length
+        ? `<div class="scope-list">
+            ${idea.scope.map(s => `<div class="scope-item">${esc(s)}</div>`).join('')}
+          </div>`
+        : '<p class="problem-text">Extend the product based on user feedback and analytics.</p>';
+
+      return `
+        <div class="idea-card" style="--stripe-color:${color}; animation-delay:${index * 0.07}s">
+          <div class="card-header">
+            <div class="card-left">
+              <span class="card-number">IDEA ${String(index+1).padStart(2,'0')}</span>
+              <div class="card-title">${esc(idea.title || 'Project Idea')}</div>
+            </div>
+            <button class="card-expand-btn" onclick="toggleCard(this)" aria-label="Expand">+</button>
+          </div>
+
+          <div class="card-sections">
+            <div class="section">
+              <div class="section-label"><span class="dot"></span>Problem Statement</div>
+              <p class="problem-text">${esc(idea.problem || 'A real-world challenge this project solves.')}</p>
+            </div>
+
+            <div class="section">
+              <div class="section-label"><span class="dot"></span>Key Features</div>
+              ${featuresHtml}
+            </div>
+
+            <div class="section">
+              <div class="section-label"><span class="dot"></span>Roadmap</div>
+              ${roadmapHtml}
+            </div>
+
+            <div class="section">
+              <div class="section-label"><span class="dot"></span>Deployment & Tech</div>
+              ${deployHtml}
+            </div>
+
+            <div class="section">
+              <div class="section-label"><span class="dot"></span>Future Scope</div>
+              ${scopeHtml}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleCard(btn) {
+      const sections = btn.closest('.idea-card').querySelector('.card-sections');
+      const open = sections.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.textContent = open ? '×' : '+';
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function generateIdeas() {
+      const btn   = document.getElementById('genBtn');
+      const loader= document.getElementById('loader');
+      const list  = document.getElementById('projects');
+      const wrap  = document.getElementById('resultsWrap');
       const badge = document.getElementById('countBadge');
 
       list.innerHTML = '';
       wrap.style.display = 'none';
       loader.classList.add('active');
       btn.disabled = true;
-      btn.textContent = 'Generating…';
+      btn.innerHTML = '<span class="shine"></span>Generating…';
 
-      try{
-        const res = await fetch('/api/generate',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
+      try {
+        /* ── Build a prompt that forces structured output ── */
+        const tech     = document.getElementById('tech').value || 'any stack';
+        const domain   = document.getElementById('domain').value || 'general';
+        const level    = document.getElementById('level').value || 'intermediate';
+        const interest = document.getElementById('interest').value || 'software';
+
+        const systemPrompt = `You are an expert software project advisor. When given inputs, generate exactly 5 project ideas.
+
+  For EACH idea, use EXACTLY this format (no markdown bold, no extra text):
+
+  [IDEA]
+  Title: <concise project title>
+  Problem Statement: <2-3 sentences describing the real-world problem>
+  Key Features:
+  - <feature 1>
+  - <feature 2>
+  - <feature 3>
+  - <feature 4>
+  - <feature 5>
+  Roadmap:
+  - <Phase 1 description>
+  - <Phase 2 description>
+  - <Phase 3 description>
+  - <Phase 4 description>
+  Deployment:
+  - <tech/platform 1>
+  - <tech/platform 2>
+  - <tech/platform 3>
+  - <tech/platform 4>
+  Future Scope:
+  - <future enhancement 1>
+  - <future enhancement 2>
+  - <future enhancement 3>
+  [/IDEA]
+
+  Generate exactly 5 ideas now.`;
+
+        const userMsg = `Tech Stack: ${tech}
+  Domain: ${domain}
+  Experience Level: ${level}
+  Interest Area: ${interest}`;
+
+        const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            techStack: document.getElementById('tech').value,
-            domain: document.getElementById('domain').value,
-            level: document.getElementById('level').value,
-            interest: document.getElementById('interest').value
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 4000,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: userMsg }]
           })
         });
 
-        const raw = await res.text();
-        const ideas = raw.split(/\n/).filter(s=>s.trim());
+        let text = '';
+
+        if (apiRes.ok) {
+          const data = await apiRes.json();
+          text = data.content?.map(b => b.text || '').join('') || '';
+        } else {
+          /* Fallback: try the /api/generate backend route */
+          const fallback = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ techStack: tech, domain, level, interest })
+          });
+          text = await fallback.text();
+        }
+
+        /* ── Parse [IDEA]...[/IDEA] blocks ── */
+        let ideas = [];
+        const blockRe = /\[IDEA\]([\s\S]*?)\[\/IDEA\]/gi;
+        let m;
+        while ((m = blockRe.exec(text)) !== null) {
+          ideas.push(parseIdea(m[1]));
+        }
+
+        /* Fallback: split by numbered list if no blocks found */
+        if (!ideas.length) {
+          ideas = text.split(/\n(?=\d+[\.\)])/g)
+            .map(s => s.trim()).filter(Boolean)
+            .map(s => parseIdea(s));
+        }
 
         loader.classList.remove('active');
         btn.disabled = false;
-        btn.textContent = '⚡ Generate Project Ideas';
+        btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
 
-        if(!ideas.length) return;
+        if (!ideas.length) return;
 
         wrap.style.display = 'block';
         badge.textContent = ideas.length + ' generated';
 
-        ideas.forEach((idea,i)=>{
-          const clean = idea.replace(/[#\*\-]/g,'').trim();
-          const tags = extractTags(clean);
-          const color = STRIPES[i%STRIPES.length];
+        list.innerHTML = ideas.map((idea, i) =>
+          buildCard(idea, i, COLORS[i % COLORS.length])
+        ).join('');
 
-          const card = document.createElement('div');
-          card.className='idea-card';
-          card.style.setProperty('--stripe-color', color);
-          card.style.animationDelay=(i*0.05)+'s';
-          card.innerHTML=`
-            <div class="card-stripe"></div>
-            <div class="card-body">
-              <div class="card-top">
-                <span class="card-badge">Idea ${String(i+1).padStart(2,'0')}</span>
-              </div>
-              <div class="card-title">Project Idea</div>
-              <p class="card-desc"><strong>${esc(clean)}</strong></p>
-              ${tags.length? `<div class="card-tags">${tags.map(t=>`<span class="ktag">${esc(t)}</span>`).join('')}</div>` : ''}
-            </div>
-          `;
-          list.appendChild(card);
-        });
+        /* Auto-open first card */
+        const firstBtn = list.querySelector('.card-expand-btn');
+        if (firstBtn) toggleCard(firstBtn);
 
-        wrap.scrollIntoView({behavior:'smooth', block:'start'});
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      } catch(e){
+      } catch(e) {
         loader.classList.remove('active');
         btn.disabled = false;
-        btn.textContent = '⚡ Generate Project Ideas';
+        btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
         alert('Something went wrong. Please try again.');
+        console.error(e);
       }
     }
 
     document.addEventListener('keydown', e => {
-      if(e.key==='Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
+      if (e.key === 'Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
     });
 </script>
+
 </body>
 </html>
