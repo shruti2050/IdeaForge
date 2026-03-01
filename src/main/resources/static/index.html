@@ -1,229 +1,720 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>IdeaForge AI</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+
+
+        <style>
+            :root {
+              --bg:        #f8f6f1;
+              --bg2:       #f2efe8;
+              --surface:   #ffffff;
+              --border:    #e4dfd4;
+              --border2:   #cdc7bc;
+              --ink:       #1a1714;
+              --ink2:      #3d3730;
+              --body:      #5a5249;
+              --muted:     #9e9488;
+              --accent:    #d4601a;
+              --accent2:   #2563eb;
+              --tag-bg:    #f0ece4;
+              --tag-text:  #7a6e62;
+              --card-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+              --card-shadow-hover: 0 2px 8px rgba(0,0,0,.08), 0 16px 40px rgba(0,0,0,.10);
+            }
+
+            *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+            body {
+              background: var(--bg);
+              color: var(--ink);
+              font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+              min-height: 100dvh;
+              line-height: 1.5;
+            }
+
+            /* ─────────────────────────────
+               HERO UPDATES (No Italics)
+            ───────────────────────────── */
+            .hero h1 {
+              font-family: 'Inter', sans-serif;
+              font-weight: 800; /* Extra bold for impact */
+              font-size: clamp(32px, 7vw, 72px);
+              line-height: 1.1;
+              letter-spacing: -0.04em; /* Tight tracking for modern look */
+              color: var(--ink);
+              opacity:0; animation:up .6s ease .2s forwards;
+            }
+
+            .hero h1 em {
+              font-style: normal; /* Removed italic */
+              color: var(--accent);
+            }
+
+            /* ─────────────────────────────
+               CARD UPDATES
+            ───────────────────────────── */
+            .card-title {
+              font-family: 'Inter', sans-serif;
+              font-weight: 700;
+              font-size: clamp(17px, 3vw, 21px);
+              line-height: 1.3;
+              letter-spacing: -0.01em;
+              color: var(--ink);
+            }
+
+            .card-badge {
+              font-family: 'JetBrains Mono', monospace;
+              font-weight: 500;
+              font-size: 10px;
+              letter-spacing: 0.05em;
+              text-transform: uppercase;
+              color: var(--stripe-color, var(--accent));
+              background: color-mix(in srgb, var(--stripe-color, var(--accent)) 8%, transparent);
+              border: 1px solid color-mix(in srgb, var(--stripe-color, var(--accent)) 15%, transparent);
+              border-radius: 4px;
+              padding: 2px 8px;
+            }
+
+            .card-desc {
+              font-size: clamp(13px, 1.8vw, 14.5px);
+              line-height: 1.6;
+              color: var(--body);
+              font-weight: 400;
+              border-top: 1px solid var(--border);
+              padding-top: 14px;
+            }
+
+            /* Keep the rest of your structural CSS (Nav, Form, Loader, etc.) */
+    </style>
+        /* ─────────────────────────────
+           DESIGN TOKENS
+        ───────────────────────────── */
+        :root {
+          --bg:        #f8f6f1;
+          --bg2:       #f2efe8;
+          --surface:   #ffffff;
+          --border:    #e4dfd4;
+          --border2:   #cdc7bc;
+          --ink:       #1a1714;
+          --ink2:      #3d3730;
+          --body:      #5a5249;
+          --muted:     #9e9488;
+          --accent:    #d4601a;
+          --accent2:   #2563eb;
+          --tag-bg:    #f0ece4;
+          --tag-text:  #7a6e62;
+
+          --card-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+          --card-shadow-hover: 0 2px 8px rgba(0,0,0,.08), 0 16px 40px rgba(0,0,0,.10);
         }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 
         body {
-            background: radial-gradient(circle at top, #1e293b, #0f172a 60%);
-            color: #e2e8f0;
+          background: var(--bg);
+          color: var(--ink);
+          font-family: 'Inter', sans-serif;
+          min-height: 100dvh;
+          overflow-x: hidden;
         }
 
-        /* NAV */
+        /* subtle paper texture */
+        body::before {
+          content:'';
+          position:fixed; inset:0; z-index:0; pointer-events:none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.018'/%3E%3C/svg%3E");
+          background-size: 200px 200px;
+          opacity: .6;
+        }
+
+        /* ─────────────────────────────
+           NAV
+        ───────────────────────────── */
         nav {
-            display: flex;
-            justify-content: space-between;
-            padding: 25px 50px;
+          position: sticky; top:0; z-index:100;
+          display: flex; align-items:center; justify-content:space-between;
+          padding: clamp(14px,2.2vw,18px) clamp(20px,5vw,60px);
+          padding-left:  max(clamp(20px,5vw,60px), env(safe-area-inset-left));
+          padding-right: max(clamp(20px,5vw,60px), env(safe-area-inset-right));
+          background: rgba(248,246,241,0.88);
+          backdrop-filter: blur(20px) saturate(160%);
+          -webkit-backdrop-filter: blur(20px) saturate(160%);
+          border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-weight: 700;
-            font-size: 20px;
-            color: #60a5fa;
+          display:flex; align-items:center; gap:10px;
+          font-family:'Inter', sans-serif;
+          font-weight:700; font-size:clamp(14px,2vw,16px);
+          color: var(--ink); letter-spacing:-.3px;
+          text-decoration:none;
         }
 
-        /* HERO */
+        .logo-mark {
+          width:30px; height:30px;
+          background: var(--ink);
+          border-radius:8px;
+          display:grid; place-items:center;
+          font-size:14px; flex-shrink:0;
+        }
+
+        .nav-tag {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.4vw,10px);
+          letter-spacing:.5px;
+          color: var(--accent);
+          border: 1px solid rgba(212,96,26,0.3);
+          border-radius:100px; padding:3px 11px;
+          white-space:nowrap;
+        }
+
+        /* ─────────────────────────────
+           HERO
+        ───────────────────────────── */
         .hero {
-            text-align: center;
-            margin-top: 40px;
-            padding: 0 20px;
+          position:relative; z-index:5;
+          text-align:center;
+          padding: clamp(56px,9vw,108px) clamp(20px,5vw,40px) clamp(40px,5vw,60px);
+        }
+
+        .hero-eyebrow {
+          display:inline-block;
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,11px);
+          letter-spacing:2.5px; text-transform:uppercase;
+          color: var(--muted); margin-bottom:clamp(18px,3vw,28px);
+          opacity:0; animation:up .6s ease .1s forwards;
         }
 
         .hero h1 {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 15px;
+          font-family:'Instrument Serif', serif;
+          font-weight:400;
+          font-size:clamp(36px,8vw,88px);
+          line-height:1.0; letter-spacing:-.5px;
+          color: var(--ink);
+          opacity:0; animation:up .6s ease .2s forwards;
         }
 
-        .hero p {
-            color: #94a3b8;
-            font-size: 18px;
+        .hero h1 em {
+          font-style:italic;
+          color: var(--accent);
         }
 
-        /* GENERATOR */
+        .hero-sub {
+          margin-top:clamp(16px,2.5vw,22px);
+          font-size:clamp(14px,2vw,17px);
+          line-height:1.65; font-weight:400;
+          color: var(--body);
+          max-width:480px; margin-inline:auto;
+          opacity:0; animation:up .6s ease .3s forwards;
+        }
+
+        /* ─────────────────────────────
+           FORM
+        ───────────────────────────── */
         .generator {
-            max-width: 750px;
-            margin: 50px auto;
-            background: #1e293b;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+          position:relative; z-index:5;
+          width:min(680px,100%);
+          margin:0 auto clamp(56px,8vw,80px);
+          padding:0 clamp(16px,4vw,20px);
+          padding-left:  max(clamp(16px,4vw,20px), env(safe-area-inset-left));
+          padding-right: max(clamp(16px,4vw,20px), env(safe-area-inset-right));
+          opacity:0; animation:up .6s ease .4s forwards;
         }
 
-        input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 18px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: white;
-            font-size: 15px;
+        .form-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: clamp(16px,3vw,22px);
+          padding: clamp(22px,5vw,36px);
+          box-shadow: var(--card-shadow);
         }
 
-        input:focus {
-            outline: none;
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 3px rgba(96,165,250,0.2);
+        .fields-grid {
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          gap:clamp(10px,2vw,14px);
+          margin-bottom:clamp(10px,2vw,14px);
         }
 
-        button {
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            background: linear-gradient(90deg,#3b82f6,#6366f1);
-            color: white;
-            transition: 0.3s;
+        @media(max-width:460px){ .fields-grid { grid-template-columns:1fr; } }
+
+        .field label {
+          display:block;
+          font-size:clamp(10px,1.5vw,11px);
+          font-weight:600; letter-spacing:.4px;
+          color: var(--ink2); margin-bottom:7px;
         }
 
-        button:hover {
-            transform: translateY(-2px);
+        .field input {
+          width:100%;
+          padding:clamp(12px,2vw,13px) clamp(13px,2.5vw,15px);
+          background: var(--bg);
+          border:1px solid var(--border);
+          border-radius:10px;
+          color: var(--ink);
+          font-family:'Inter', sans-serif;
+          font-size:16px; font-weight:400;
+          transition:border-color .2s, box-shadow .2s, background .2s;
+          -webkit-appearance:none; appearance:none;
+          touch-action:manipulation;
         }
 
-        /* LOADER */
-        .loader {
-            display: none;
-            margin: 25px auto;
-            border: 4px solid #1e293b;
-            border-top: 4px solid #3b82f6;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            animation: spin 1s linear infinite;
+        @media(min-width:769px){ .field input { font-size:14px; } }
+        .field input::placeholder { color:var(--muted); }
+        .field input:focus {
+          outline:none;
+          border-color:var(--accent2);
+          background:#fff;
+          box-shadow:0 0 0 3px rgba(37,99,235,0.10);
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        .form-sep { height:1px; background:var(--border); margin:clamp(18px,3vw,24px) 0; }
+
+        .gen-btn {
+          position:relative; width:100%; overflow:hidden;
+          padding:clamp(14px,2.5vw,16px);
+          background:var(--ink);
+          border:none; border-radius:12px;
+          color:#fff;
+          font-family:'Inter', sans-serif;
+          font-weight:600; font-size:clamp(14px,2.2vw,15px);
+          letter-spacing:.2px; cursor:pointer;
+          min-height:50px;
+          transition:background .2s, transform .15s, box-shadow .2s;
+          -webkit-tap-highlight-color:transparent;
+          touch-action:manipulation;
         }
 
-        /* RESULTS */
-        .results {
-            max-width: 850px;
-            margin: 60px auto;
-            padding: 0 20px;
+        .gen-btn .shine {
+          position:absolute; inset:0;
+          background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.08),transparent 70%);
+          transform:translateX(-100%); transition:transform .5s;
         }
 
-        .project {
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 18px;
-            margin-bottom: 20px;
-            transition: 0.3s;
+        @media(hover:hover){
+          .gen-btn:hover { background:#2a2420; box-shadow:0 6px 28px rgba(0,0,0,0.22); transform:translateY(-1px); }
+          .gen-btn:hover .shine { transform:translateX(100%); }
+        }
+        .gen-btn:active { transform:scale(.98); }
+        .gen-btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+
+        /* ─────────────────────────────
+           LOADER
+        ───────────────────────────── */
+        .loader { display:none; padding:22px 0 4px; }
+        .loader.active { display:block; }
+
+        .loader-track {
+          width:100%; height:2px;
+          background:var(--border); border-radius:2px; overflow:hidden;
+          margin-bottom:12px;
         }
 
-        .project:hover {
-            transform: translateY(-4px);
+        .loader-fill {
+          height:100%;
+          background:linear-gradient(90deg, var(--accent), var(--accent2));
+          border-radius:2px;
+          animation:sweep 1.9s ease-in-out infinite;
         }
 
-        .project h3 {
-            color: #60a5fa;
-            margin-bottom: 10px;
+        @keyframes sweep {
+          0%   { width:0%;  margin-left:0;    }
+          50%  { width:55%; margin-left:20%;  }
+          100% { width:0%;  margin-left:100%; }
         }
 
-        .project p {
-            color: #cbd5e1;
-            line-height: 1.6;
+        .loader-text {
+          text-align:center;
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,11px);
+          color:var(--muted); letter-spacing:1px;
+          animation:breathe 1.7s ease-in-out infinite;
         }
 
-        /* MOBILE */
-        @media(max-width:600px){
-            .hero h1 {
-                font-size: 28px;
-            }
+        @keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-            nav {
-                padding: 20px;
-            }
-
-            .generator {
-                padding: 25px;
-            }
+        /* ─────────────────────────────
+           RESULTS
+        ───────────────────────────── */
+        .results-wrap {
+          position:relative; z-index:5;
+          width:min(960px,100%);
+          margin:0 auto clamp(80px,12vw,130px);
+          padding:0 clamp(16px,4vw,20px);
+          padding-left:  max(clamp(16px,4vw,20px), env(safe-area-inset-left));
+          padding-right: max(clamp(16px,4vw,20px), env(safe-area-inset-right));
+          padding-bottom:max(clamp(80px,12vw,130px), env(safe-area-inset-bottom));
         }
+
+        .results-header {
+          display:flex; align-items:center; gap:16px;
+          margin-bottom:clamp(24px,4vw,36px);
+        }
+
+        .results-eyebrow {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(10px,1.5vw,11px);
+          letter-spacing:2px; text-transform:uppercase;
+          color:var(--muted); white-space:nowrap;
+        }
+
+        .results-rule { flex:1; height:1px; background:var(--border); }
+
+        .results-count {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.4vw,10px);
+          color:var(--accent);
+          border:1px solid rgba(212,96,26,.25);
+          border-radius:100px; padding:3px 11px;
+          white-space:nowrap;
+        }
+
+        /* ─────────────────────────────
+           IDEA CARDS — the star
+        ───────────────────────────── */
+        .cards-list {
+          display:flex; flex-direction:column;
+          gap:clamp(14px,2vw,18px);
+        }
+
+        .idea-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: clamp(14px,2.5vw,18px);
+          overflow:hidden;
+          opacity:0; transform:translateY(18px);
+          animation: cardIn .5s cubic-bezier(.22,.68,0,1.15) forwards;
+          transition: border-color .22s, box-shadow .22s, transform .22s;
+          cursor:pointer;
+          -webkit-tap-highlight-color:transparent;
+          box-shadow: var(--card-shadow);
+          display:flex;
+        }
+
+        /* left accent stripe */
+        .card-stripe {
+          width:4px; flex-shrink:0;
+          background: var(--stripe-color, var(--accent));
+          border-radius:0;
+        }
+
+        .card-body {
+          flex:1;
+          padding: clamp(20px,4vw,28px) clamp(22px,4vw,30px);
+          display:flex; flex-direction:column; gap:clamp(10px,1.8vw,14px);
+        }
+
+        /* header row */
+        .card-top {
+          display:flex; align-items:center; justify-content:space-between; gap:12px;
+        }
+
+        .card-badge {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.3vw,10px);
+          letter-spacing:1.5px; text-transform:uppercase;
+          color: var(--stripe-color, var(--accent));
+          background: color-mix(in srgb, var(--stripe-color, var(--accent)) 9%, transparent);
+          border: 1px solid color-mix(in srgb, var(--stripe-color, var(--accent)) 22%, transparent);
+          border-radius:6px; padding:4px 10px;
+          white-space:nowrap;
+        }
+
+        .card-arrow {
+          font-size:17px; color:var(--border2);
+          transition:color .2s, transform .2s;
+          flex-shrink:0; line-height:1;
+        }
+
+        /* title */
+        .card-title {
+          font-family:'Instrument Serif', serif;
+          font-weight:400;
+          font-size:clamp(18px,3.2vw,24px);
+          line-height:1.25; letter-spacing:-.2px;
+          color: var(--ink);
+        }
+
+        /* description */
+        .card-desc {
+          font-size:clamp(13.5px,1.8vw,15px);
+          line-height:1.75;
+          color: var(--body);
+          font-weight:400;
+          border-top:1px solid var(--border);
+          padding-top:clamp(10px,1.8vw,14px);
+        }
+
+        /* keyword tags */
+        .card-tags {
+          display:flex; flex-wrap:wrap; gap:6px;
+          padding-top:2px;
+        }
+
+        .ktag {
+          font-family:'JetBrains Mono', monospace;
+          font-size:clamp(9px,1.2vw,10px);
+          letter-spacing:.6px;
+          color:var(--tag-text);
+          background:var(--tag-bg);
+          border:1px solid var(--border);
+          border-radius:6px; padding:3px 9px;
+        }
+
+        @media(hover:hover){
+          .idea-card:hover {
+            border-color:var(--border2);
+            box-shadow:var(--card-shadow-hover);
+            transform:translateY(-2px);
+          }
+          .idea-card:hover .card-arrow { color:var(--stripe-color,var(--accent)); transform:translate(2px,-2px); }
+        }
+
+        .idea-card:active { transform:scale(.99); }
+
+        /* ─────────────────────────────
+           KEYFRAMES
+        ───────────────────────────── */
+        @keyframes up {
+          from { opacity:0; transform:translateY(20px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes cardIn {
+          to { opacity:1; transform:translateY(0); }
+        }
+
+
+
+    .developer-credit {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+    }
+
+    .dev-name {
+    color: var(--ink);
+    font-weight: 600;
+    position: relative;
+    /* Subtle underline effect */
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    padding-bottom: 2px;
+    }
+
+    /* Responsive adjustment for the credit */
+    @media (max-width: 600px) {
+    .developer-credit {
+    order: 2; /* Moves name between logo and links on mobile */
+    margin: 10px 0;
+    }
+    }
     </style>
 </head>
-
 <body>
 
+<!-- NAV -->
 <nav>
-    <div class="logo">IdeaForge AI</div>
+    <a class="logo" href="#">
+        <div class="logo-mark">⚡</div>
+        IdeaForge
+    </a>
+    <span class="nav-tag">AI · v2.0</span>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-    <h1>Generate Industry-Level Project Ideas</h1>
-    <p>AI-powered suggestions tailored to your skills and interests</p>
+    <div class="hero-eyebrow">Project Idea Generator</div>
+    <h1>Ideas worth<br><em>building</em></h1>
+    <p class="hero-sub">Tell us your stack, domain, and experience. We'll give you sharp, industry-ready project ideas — instantly.</p>
 </div>
 
+<!-- FORM -->
 <div class="generator">
-    <input type="text" id="tech" placeholder="Tech Stack (Java Fullstack)">
-    <input type="text" id="domain" placeholder="Domain (Fintech, Health, EdTech)">
-    <input type="text" id="level" placeholder="Experience Level">
-    <input type="text" id="interest" placeholder="Interest Area">
+    <div class="form-card">
 
-    <button onclick="generateIdeas()">Generate Ideas</button>
-    <div class="loader" id="loader"></div>
+        <div class="fields-grid">
+            <div class="field">
+                <label>Tech Stack</label>
+                <input type="text" id="tech" placeholder="Java Fullstack, MERN…"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
+            </div>
+            <div class="field">
+                <label>Domain</label>
+                <input type="text" id="domain" placeholder="Fintech, Health, EdTech…"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
+            </div>
+        </div>
+
+        <div class="fields-grid">
+            <div class="field">
+                <label>Experience Level</label>
+                <input type="text" id="level" placeholder="Beginner / Mid / Senior"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
+            </div>
+            <div class="field">
+                <label>Interest Area</label>
+                <input type="text" id="interest" placeholder="ML, APIs, Real-time…"
+                       autocomplete="off" autocorrect="off" spellcheck="false">
+            </div>
+        </div>
+
+        <div class="form-sep"></div>
+
+        <button class="gen-btn" id="genBtn" onclick="generateIdeas()">
+            <span class="shine"></span>
+            ⚡ &nbsp;Generate Project Ideas
+        </button>
+
+        <div class="loader" id="loader">
+            <div class="loader-track"><div class="loader-fill"></div></div>
+            <div class="loader-text">FORGING IDEAS…</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="results" id="projects"></div>
+<!-- RESULTS -->
+<div class="results-wrap" id="resultsWrap" style="display:none">
+    <div class="results-header">
+        <span class="results-eyebrow">Ideas</span>
+        <div class="results-rule"></div>
+        <span class="results-count" id="countBadge">0 generated</span>
+    </div>
+    <div class="cards-list" id="projects"></div>
+</div>
 
 <script>
-    async function generateIdeas() {
+    const STRIPES = ['#d4601a','#2563eb','#059669','#7c3aed','#db2777','#b45309'];
 
-        const loader = document.getElementById("loader");
-        const projectsDiv = document.getElementById("projects");
+    const KEYWORDS = [
+      'AI','Machine Learning','Computer Vision','NLP','Blockchain','IoT',
+      'Real-time','WebSockets','OAuth','Payments','Analytics','Dashboard',
+      'GraphQL','REST API','Firebase','Docker','Cloud','Microservices',
+      'Recommender','Search','Chat','Maps','AR','Mobile','PWA','Web3'
+    ];
 
-        projectsDiv.innerHTML = "";
-        loader.style.display = "block";
-
-        const response = await fetch("/api/generate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                techStack: document.getElementById("tech").value,
-                domain: document.getElementById("domain").value,
-                level: document.getElementById("level").value,
-                interest: document.getElementById("interest").value
-            })
-        });
-
-        const text = await response.text();
-        loader.style.display = "none";
-
-        const ideas = text.split(/\n\d+\.\s/).filter(i => i.trim() !== "");
-
-        ideas.forEach(idea => {
-
-            const card = document.createElement("div");
-            card.className = "project";
-
-            const lines = idea.split("\n");
-
-            const title = document.createElement("h3");
-            title.innerText = lines[0];
-
-            const desc = document.createElement("p");
-            desc.innerText = lines.slice(1).join(" ");
-
-            card.appendChild(title);
-            card.appendChild(desc);
-            projectsDiv.appendChild(card);
-        });
+    function extractTags(text) {
+      return KEYWORDS.filter(k => text.toLowerCase().includes(k.toLowerCase())).slice(0,5);
     }
-</script>
 
+    function esc(s){
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function generateIdeas(){
+      const btn    = document.getElementById('genBtn');
+      const loader = document.getElementById('loader');
+      const list   = document.getElementById('projects');
+      const wrap   = document.getElementById('resultsWrap');
+      const badge  = document.getElementById('countBadge');
+
+      list.innerHTML = '';
+      wrap.style.display = 'none';
+      loader.classList.add('active');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="shine"></span>Generating…';
+
+      try {
+        const res = await fetch('/api/generate', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            techStack: document.getElementById('tech').value,
+            domain:    document.getElementById('domain').value,
+            level:     document.getElementById('level').value,
+            interest:  document.getElementById('interest').value
+          })
+        });
+
+        const raw   = await res.text();
+        const ideas = raw.split(/\n\d+\.\s+/).filter(s => s.trim());
+
+        loader.classList.remove('active');
+        btn.disabled = false;
+        btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
+
+        if (!ideas.length) return;
+
+        wrap.style.display = 'block';
+        badge.textContent  = ideas.length + ' generated';
+
+        ideas.forEach((raw, i) => {
+          const lines = raw.split('\n').filter(l => l.trim());
+          const title = lines[0].replace(/^\*+|\*+$/g,'').trim() || 'Project Idea';
+          const desc  = lines.slice(1).join(' ').replace(/^\*+|\*+$/g,'').trim();
+          const tags  = extractTags(title + ' ' + desc);
+          const color = STRIPES[i % STRIPES.length];
+
+          const card = document.createElement('div');
+          card.className = 'idea-card';
+          card.style.setProperty('--stripe-color', color);
+          card.style.animationDelay = (i * 0.06) + 's';
+
+          card.innerHTML = `
+            <div class="card-stripe"></div>
+            <div class="card-body">
+              <div class="card-top">
+                <span class="card-badge">Idea ${String(i+1).padStart(2,'0')}</span>
+                <span class="card-arrow">↗</span>
+              </div>
+              <div class="card-title">${esc(title)}</div>
+              ${desc ? `<p class="card-desc">${esc(desc)}</p>` : ''}
+              ${tags.length ? `<div class="card-tags">${tags.map(t=>`<span class="ktag">${esc(t)}</span>`).join('')}</div>` : ''}
+            </div>
+          `;
+
+          list.appendChild(card);
+        });
+
+        wrap.scrollIntoView({ behavior:'smooth', block:'start' });
+
+      } catch(e) {
+        loader.classList.remove('active');
+        btn.disabled = false;
+        btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
+        alert('Something went wrong. Please try again.');
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
+    });
+</script>
+<footer>
+    <div class="footer-left">
+        <a href="#" class="footer-logo">
+            <span style="opacity: 0.8;">⚡</span> IdeaForge AI
+        </a>
+        <div class="footer-copy">
+            &copy; 2026 Crafted for builders.
+        </div>
+    </div>
+
+    <div class="developer-credit">
+        Developed by <span class="dev-name">Shrut Joshi</span>
+    </div>
+
+    <div class="footer-right">
+        <a href="#" class="footer-link">
+            <span class="status-dot"></span> System Operational
+        </a>
+        <a href="#" class="footer-link">GitHub</a>
+    </div>
+</footer>
 </body>
 </html>
+change the font from italic and other keep simple yet good font only
