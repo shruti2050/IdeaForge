@@ -30,7 +30,7 @@ public class OpenRouterService {
 
         // Request Body
         Map<String, Object> request = new HashMap<>();
-        request.put("model", "openai/gpt-3.5-turbo");
+        request.put("model", "google/gemini-2.0-flash-001");
 
         List<Map<String, String>> messages = new ArrayList<>();
         Map<String, String> message = new HashMap<>();
