@@ -2,107 +2,184 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IdeaForge AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
           --bg: #f8f6f1;
-          --bg2: #f2efe8;
           --surface: #ffffff;
           --border: #e4dfd4;
           --border2: #cdc7bc;
           --ink: #1a1714;
-          --ink2: #3d3730;
           --body: #5a5249;
           --muted: #9e9488;
           --accent: #d4601a;
           --accent2: #2563eb;
-          --tag-bg: #f0ece4;
-          --tag-text: #7a6e62;
-          --card-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
-          --card-shadow-hover: 0 2px 8px rgba(0,0,0,.08), 0 16px 40px rgba(0,0,0,.10);
+          --card-shadow: 0 2px 10px rgba(0,0,0,.08);
+          --card-shadow-hover: 0 4px 16px rgba(0,0,0,.12);
         }
 
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; line-height: 1.5; }
-        a { text-decoration:none; color:inherit; }
+        *, *::before, *::after {margin:0;padding:0;box-sizing:border-box;}
+        body {
+          background: var(--bg);
+          font-family:'Inter', sans-serif;
+          color: var(--ink);
+          min-height:100vh;
+          line-height:1.6;
+        }
 
-        /* NAV */
+        /* NAVIGATION */
         nav {
-          position: sticky; top:0; z-index:100;
-          display:flex; align-items:center; justify-content:space-between;
-          padding:16px 5vw;
-          background: rgba(248,246,241,0.88);
-          backdrop-filter: blur(20px) saturate(160%);
-          border-bottom: 1px solid var(--border);
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          padding:16px 40px;
+          background: rgba(248,246,241,0.9);
+          backdrop-filter: blur(20px);
+          border-bottom:1px solid var(--border);
+          position:sticky;
+          top:0;
+          z-index:10;
         }
-        .logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; }
-        .logo-mark { width:30px; height:30px; background: var(--ink); border-radius:8px; display:grid; place-items:center; font-size:14px; color:#fff; }
+        .logo {
+          font-weight:700;
+          font-size:18px;
+          text-decoration:none;
+          color: var(--ink);
+          display:flex;
+          align-items:center;
+          gap:8px;
+        }
+        .logo-mark {
+          background: var(--ink);
+          color:#fff;
+          font-size:14px;
+          width:30px; height:30px;
+          display:grid; place-items:center;
+          border-radius:6px;
+        }
 
         /* HERO */
-        .hero { text-align:center; padding:80px 5vw 60px; }
-        .hero-eyebrow { font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:2.5px; color: var(--muted); margin-bottom:24px; text-transform:uppercase; }
-        .hero h1 { font-weight:800; font-size:clamp(32px,7vw,72px); line-height:1.1; letter-spacing:-0.04em; }
-        .hero h1 em { font-style:normal; color: var(--accent); }
-        .hero-sub { margin-top:16px; font-size:16px; color: var(--body); max-width:480px; margin-left:auto; margin-right:auto; }
+        .hero {
+          text-align:center;
+          padding:80px 20px 40px;
+        }
+        .hero-eyebrow {
+          font-family:'JetBrains Mono', monospace;
+          font-size:12px;
+          color:var(--muted);
+          letter-spacing:2px;
+          text-transform:uppercase;
+          margin-bottom:16px;
+        }
+        .hero h1 {
+          font-weight:700;
+          font-size: clamp(32px, 6vw, 64px);
+          color: var(--ink);
+        }
+        .hero em { color: var(--accent); font-style:normal; }
+        .hero-sub {
+          font-size:16px;
+          max-width:500px;
+          margin:12px auto 0;
+          color: var(--body);
+        }
 
         /* FORM */
-        .generator { width:min(680px,95%); margin:0 auto 60px; }
-        .form-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; box-shadow: var(--card-shadow); }
-        .fields-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-        @media(max-width:460px){ .fields-grid { grid-template-columns:1fr; } }
-        .field label { display:block; font-size:11px; font-weight:600; color: var(--ink2); margin-bottom:6px; }
-        .field input { width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:10px; font-size:14px; }
-        .field input:focus { outline:none; border-color: var(--accent2); background:#fff; box-shadow:0 0 0 3px rgba(37,99,235,0.1); }
-        .form-sep { height:1px; background: var(--border); margin:24px 0; }
-        .gen-btn { width:100%; padding:14px; background: var(--ink); border:none; border-radius:12px; color:#fff; font-weight:600; font-size:15px; cursor:pointer; position:relative; overflow:hidden; }
-        .gen-btn .shine { position:absolute; inset:0; background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.08),transparent 70%); transform:translateX(-100%); transition:transform .5s; }
-        .gen-btn:hover .shine { transform:translateX(100%); }
+        .generator { max-width:700px; margin:40px auto; padding:0 20px; }
+        .form-card {
+          background: var(--surface);
+          border:1px solid var(--border);
+          border-radius:16px;
+          padding:24px;
+          box-shadow: var(--card-shadow);
+        }
+        .fields-grid {
+          display:grid;
+          gap:12px;
+          grid-template-columns:1fr 1fr;
+          margin-bottom:16px;
+        }
+        @media(max-width:500px){ .fields-grid{ grid-template-columns:1fr; } }
+        .field label {
+          display:block;
+          font-weight:600;
+          font-size:14px;
+          margin-bottom:6px;
+        }
+        .field input {
+          width:100%;
+          padding:10px 12px;
+          border:1px solid var(--border);
+          border-radius:10px;
+          font-size:14px;
+          transition:border-color .2s;
+        }
+        .field input:focus { outline:none; border-color:var(--accent2); }
+
+        .gen-btn {
+          width:100%;
+          padding:14px;
+          font-weight:600;
+          font-size:16px;
+          border:none;
+          border-radius:12px;
+          color:#fff;
+          background: var(--ink);
+          cursor:pointer;
+          position:relative;
+        }
+        .gen-btn:hover { background:#2a2420; }
+        .gen-btn:disabled { opacity:0.5; cursor:not-allowed; }
 
         /* LOADER */
-        .loader { display:none; padding:22px 0 4px; }
+        .loader { display:none; padding:16px 0; }
         .loader.active { display:block; }
-        .loader-track { width:100%; height:2px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:12px; }
-        .loader-fill { height:100%; background:linear-gradient(90deg, var(--accent), var(--accent2)); border-radius:2px; animation:sweep 1.9s ease-in-out infinite; }
-        @keyframes sweep { 0% {width:0; margin-left:0;} 50% {width:55%; margin-left:20%;} 100% {width:0; margin-left:100%;} }
-        .loader-text { text-align:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:1px; animation:breathe 1.7s ease-in-out infinite; }
-        @keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:1} }
+        .loader-track { width:100%; height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-bottom:8px; }
+        .loader-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); animation:sweep 1.8s infinite; }
+        @keyframes sweep {0%{width:0}50%{width:60%}100%{width:0}}
+        .loader-text { text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
 
         /* RESULTS */
-        .results-wrap { width:min(960px,95%); margin:0 auto 80px; padding:0 5vw; display:none; }
-        .results-header { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
-        .results-eyebrow { font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); text-transform:uppercase; }
+        .results-wrap { max-width:900px; margin:40px auto; padding:0 20px; }
+        .results-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+        .results-eyebrow { font-family:'JetBrains Mono', monospace; font-size:12px; text-transform:uppercase; color:var(--muted); }
         .results-rule { flex:1; height:1px; background:var(--border); }
-        .results-count { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--accent); border:1px solid rgba(212,96,26,.25); border-radius:100px; padding:3px 11px; }
+        .results-count { font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); border:1px solid rgba(212,96,26,.25); border-radius:100px; padding:2px 10px; }
 
-        /* IDEA CARDS */
-        .cards-list { display:flex; flex-direction:column; gap:18px; }
-        .idea-card { display:flex; background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:var(--card-shadow); transition:all .22s; }
-        .idea-card:hover { border-color:var(--border2); box-shadow:var(--card-shadow-hover); transform:translateY(-2px); }
-        .card-stripe { width:4px; flex-shrink:0; background:var(--stripe-color,var(--accent)); }
-        .card-body { flex:1; padding:20px 24px; display:flex; flex-direction:column; gap:12px; }
+        /* CARDS */
+        .cards-list { display:flex; flex-direction:column; gap:16px; }
+        .idea-card {
+          display:flex; border-radius:16px; overflow:hidden;
+          background: var(--surface);
+          border:1px solid var(--border);
+          box-shadow:var(--card-shadow);
+          cursor:pointer;
+          transition: all 0.2s ease;
+        }
+        .idea-card:hover { box-shadow: var(--card-shadow-hover); transform:translateY(-2px); }
+        .card-stripe { width:4px; background:var(--stripe-color,var(--accent)); flex-shrink:0; }
+        .card-body { padding:20px; flex:1; display:flex; flex-direction:column; gap:10px; }
         .card-top { display:flex; justify-content:space-between; align-items:center; }
-        .card-badge { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--stripe-color,var(--accent)); background: color-mix(in srgb,var(--stripe-color,var(--accent)) 8%,transparent); border:1px solid color-mix(in srgb,var(--stripe-color,var(--accent)) 15%,transparent); border-radius:4px; padding:2px 8px; text-transform:uppercase; }
-        .card-arrow { font-size:17px; color:var(--border2); transition:color .2s; }
-        .card-title { font-weight:700; font-size:18px; color:var(--ink); }
-        .card-desc { font-size:14px; color:var(--body); border-top:1px solid var(--border); padding-top:10px; line-height:1.6; }
+        .card-badge { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--stripe-color,var(--accent)); }
+        .card-title { font-weight:700; font-size:18px; color: var(--ink); }
+        .card-desc { font-size:14px; color: var(--body); }
+        .card-desc strong { font-weight:700; }
         .card-tags { display:flex; flex-wrap:wrap; gap:6px; }
-        .ktag { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--tag-text); background:var(--tag-bg); border-radius:6px; padding:2px 8px; }
-
-        @keyframes up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .ktag { font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--body); background:#f0ece4; border-radius:6px; padding:2px 8px; }
 
         /* FOOTER */
-        footer { margin-top:auto; padding:40px 5vw; border-top:1px solid var(--border); background: var(--bg2); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:24px; }
-        .footer-left { display:flex; flex-direction:column; gap:8px; }
-        .footer-logo { font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
+        footer { padding:40px 20px; background:#f2efe8; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; }
+        .footer-left, .footer-right { display:flex; flex-direction:column; gap:8px; }
+        .footer-logo { font-weight:700; text-decoration:none; color: var(--ink); display:flex; align-items:center; gap:8px; }
         .footer-copy { font-size:12px; color:var(--muted); }
-        .footer-right { display:flex; gap:24px; }
-        .footer-link { font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--body); }
-        .footer-link:hover { color:var(--accent); }
-        .status-dot { display:inline-block; width:6px; height:6px; background:#10b981; border-radius:50%; margin-right:4px; }
-        @media(max-width:600px){ footer { flex-direction:column; text-align:center; } .footer-left { align-items:center; } }
+        .footer-link { font-family:'JetBrains Mono', monospace; font-size:11px; text-decoration:none; color:var(--body); margin-top:4px; }
+        .footer-link:hover { color: var(--accent); }
+
+        /* KEYFRAMES */
+        @keyframes up { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
     </style>
 </head>
 <body>
@@ -113,22 +190,33 @@
 
 <div class="hero">
     <div class="hero-eyebrow">Project Idea Generator</div>
-    <h1>Ideas worth<br><em>building</em></h1>
-    <p class="hero-sub">Tell us your stack, domain, and experience. We'll give you sharp, industry-ready project ideas instantly.</p>
+    <h1>Ideas worth <em>building</em></h1>
+    <p class="hero-sub">Enter your stack, domain, and experience level. Get clean, professional project ideas instantly.</p>
 </div>
 
 <div class="generator">
     <div class="form-card">
         <div class="fields-grid">
-            <div class="field"><label>Tech Stack</label><input type="text" id="tech" placeholder="Java Fullstack, MERN…"></div>
-            <div class="field"><label>Domain</label><input type="text" id="domain" placeholder="Fintech, Health, EdTech…"></div>
+            <div class="field">
+                <label>Tech Stack</label>
+                <input type="text" id="tech" placeholder="Java, MERN, Python…" />
+            </div>
+            <div class="field">
+                <label>Domain</label>
+                <input type="text" id="domain" placeholder="Fintech, Health, EdTech…" />
+            </div>
         </div>
         <div class="fields-grid">
-            <div class="field"><label>Experience Level</label><input type="text" id="level" placeholder="Beginner / Mid / Senior"></div>
-            <div class="field"><label>Interest Area</label><input type="text" id="interest" placeholder="ML, APIs, Real-time…"></div>
+            <div class="field">
+                <label>Experience Level</label>
+                <input type="text" id="level" placeholder="Beginner / Mid / Senior" />
+            </div>
+            <div class="field">
+                <label>Interest Area</label>
+                <input type="text" id="interest" placeholder="ML, APIs, Real-time…" />
+            </div>
         </div>
-        <div class="form-sep"></div>
-        <button class="gen-btn" id="genBtn" onclick="generateIdeas()"><span class="shine"></span>⚡ &nbsp;Generate Project Ideas</button>
+        <button class="gen-btn" id="genBtn" onclick="generateIdeas()">⚡ Generate Project Ideas</button>
         <div class="loader" id="loader">
             <div class="loader-track"><div class="loader-fill"></div></div>
             <div class="loader-text">FORGING IDEAS…</div>
@@ -136,7 +224,7 @@
     </div>
 </div>
 
-<div class="results-wrap" id="resultsWrap">
+<div class="results-wrap" id="resultsWrap" style="display:none">
     <div class="results-header">
         <span class="results-eyebrow">Ideas</span>
         <div class="results-rule"></div>
@@ -147,12 +235,11 @@
 
 <footer>
     <div class="footer-left">
-        <a href="#" class="footer-logo"><span style="opacity:0.8;">⚡</span> IdeaForge AI</a>
+        <a href="#" class="footer-logo"><span>⚡</span> IdeaForge AI</a>
         <div class="footer-copy">&copy; 2026 Crafted for builders.</div>
     </div>
-    <div class="developer-credit">Developed by <span class="dev-name">Shruti Joshi</span></div>
     <div class="footer-right">
-        <a href="#" class="footer-link"><span class="status-dot"></span> System Operational</a>
+        <a href="#" class="footer-link">System Operational</a>
         <a href="#" class="footer-link">GitHub</a>
     </div>
 </footer>
@@ -175,10 +262,10 @@
       wrap.style.display = 'none';
       loader.classList.add('active');
       btn.disabled = true;
-      btn.innerHTML = '<span class="shine"></span>Generating…';
+      btn.textContent = 'Generating…';
 
       try{
-        const res = await fetch('/api/generate', {
+        const res = await fetch('/api/generate',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify({
@@ -188,38 +275,36 @@
             interest: document.getElementById('interest').value
           })
         });
+
         const raw = await res.text();
-        const ideas = raw.split(/\n(?:\d+\.|\-|\*)\s+/).filter(s => s.trim());
+        const ideas = raw.split(/\n/).filter(s=>s.trim());
 
         loader.classList.remove('active');
         btn.disabled = false;
-        btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
+        btn.textContent = '⚡ Generate Project Ideas';
 
         if(!ideas.length) return;
 
         wrap.style.display = 'block';
         badge.textContent = ideas.length + ' generated';
 
-        ideas.forEach((idea, i) => {
-          const lines = idea.split('\n').filter(l=>l.trim());
-          const title = lines[0].trim() || 'Project Idea';
-          const desc = lines.slice(1).map(l=>esc(l)).join('<br>');
-          const tags = extractTags(title+' '+desc);
-          const color = STRIPES[i % STRIPES.length];
+        ideas.forEach((idea,i)=>{
+          const clean = idea.replace(/[#\*\-]/g,'').trim();
+          const tags = extractTags(clean);
+          const color = STRIPES[i%STRIPES.length];
 
           const card = document.createElement('div');
-          card.className = 'idea-card';
+          card.className='idea-card';
           card.style.setProperty('--stripe-color', color);
-          card.style.animationDelay = (i*0.06)+'s';
-          card.innerHTML = `
+          card.style.animationDelay=(i*0.05)+'s';
+          card.innerHTML=`
             <div class="card-stripe"></div>
             <div class="card-body">
               <div class="card-top">
                 <span class="card-badge">Idea ${String(i+1).padStart(2,'0')}</span>
-                <span class="card-arrow">↗</span>
               </div>
-              <div class="card-title">${esc(title)}</div>
-              ${desc? `<p class="card-desc">${desc}</p>` : ''}
+              <div class="card-title">Project Idea</div>
+              <p class="card-desc"><strong>${esc(clean)}</strong></p>
               ${tags.length? `<div class="card-tags">${tags.map(t=>`<span class="ktag">${esc(t)}</span>`).join('')}</div>` : ''}
             </div>
           `;
@@ -231,7 +316,7 @@
       } catch(e){
         loader.classList.remove('active');
         btn.disabled = false;
-        btn.innerHTML = '<span class="shine"></span>⚡ &nbsp;Generate Project Ideas';
+        btn.textContent = '⚡ Generate Project Ideas';
         alert('Something went wrong. Please try again.');
       }
     }
@@ -240,6 +325,5 @@
       if(e.key==='Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
     });
 </script>
-
 </body>
 </html>
