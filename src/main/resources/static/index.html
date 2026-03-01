@@ -6,90 +6,7 @@
     <title>IdeaForge AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-            :root {
-              --bg:        #f8f6f1;
-              --bg2:       #f2efe8;
-              --surface:   #ffffff;
-              --border:    #e4dfd4;
-              --border2:   #cdc7bc;
-              --ink:       #1a1714;
-              --ink2:      #3d3730;
-              --body:      #5a5249;
-              --muted:     #9e9488;
-              --accent:    #d4601a;
-              --accent2:   #2563eb;
-              --tag-bg:    #f0ece4;
-              --tag-text:  #7a6e62;
-              --card-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
-              --card-shadow-hover: 0 2px 8px rgba(0,0,0,.08), 0 16px 40px rgba(0,0,0,.10);
-            }
-
-            *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-            body {
-              background: var(--bg);
-              color: var(--ink);
-              font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-              min-height: 100dvh;
-              line-height: 1.5;
-            }
-
-            /* ─────────────────────────────
-               HERO UPDATES (No Italics)
-            ───────────────────────────── */
-            .hero h1 {
-              font-family: 'Inter', sans-serif;
-              font-weight: 800; /* Extra bold for impact */
-              font-size: clamp(32px, 7vw, 72px);
-              line-height: 1.1;
-              letter-spacing: -0.04em; /* Tight tracking for modern look */
-              color: var(--ink);
-              opacity:0; animation:up .6s ease .2s forwards;
-            }
-
-            .hero h1 em {
-              font-style: normal; /* Removed italic */
-              color: var(--accent);
-            }
-
-            /* ─────────────────────────────
-               CARD UPDATES
-            ───────────────────────────── */
-            .card-title {
-              font-family: 'Inter', sans-serif;
-              font-weight: 700;
-              font-size: clamp(17px, 3vw, 21px);
-              line-height: 1.3;
-              letter-spacing: -0.01em;
-              color: var(--ink);
-            }
-
-            .card-badge {
-              font-family: 'JetBrains Mono', monospace;
-              font-weight: 500;
-              font-size: 10px;
-              letter-spacing: 0.05em;
-              text-transform: uppercase;
-              color: var(--stripe-color, var(--accent));
-              background: color-mix(in srgb, var(--stripe-color, var(--accent)) 8%, transparent);
-              border: 1px solid color-mix(in srgb, var(--stripe-color, var(--accent)) 15%, transparent);
-              border-radius: 4px;
-              padding: 2px 8px;
-            }
-
-            .card-desc {
-              font-size: clamp(13px, 1.8vw, 14.5px);
-              line-height: 1.6;
-              color: var(--body);
-              font-weight: 400;
-              border-top: 1px solid var(--border);
-              padding-top: 14px;
-            }
-
-            /* Keep the rest of your structural CSS (Nav, Form, Loader, etc.) */
 
         /* ─────────────────────────────
            DESIGN TOKENS
@@ -491,34 +408,180 @@
           to { opacity:1; transform:translateY(0); }
         }
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-
-    .developer-credit {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-    letter-spacing: -0.01em;
+<style>
+    :root {
+      --bg:        #f8f6f1;
+      --bg2:       #f2efe8;
+      --surface:   #ffffff;
+      --border:    #e4dfd4;
+      --border2:   #cdc7bc;
+      --ink:       #1a1714;
+      --ink2:      #3d3730;
+      --body:      #5a5249;
+      --muted:     #9e9488;
+      --accent:    #d4601a;
+      --accent2:   #2563eb;
+      --tag-bg:    #f0ece4;
+      --tag-text:  #7a6e62;
+      --card-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+      --card-shadow-hover: 0 2px 8px rgba(0,0,0,.08), 0 16px 40px rgba(0,0,0,.10);
     }
 
-    .dev-name {
-    color: var(--ink);
-    font-weight: 600;
-    position: relative;
-    /* Subtle underline effect */
-    background-image: linear-gradient(var(--accent), var(--accent));
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 1px;
-    padding-bottom: 2px;
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100dvh;
+      line-height: 1.5;
     }
 
-    /* Responsive adjustment for the credit */
-    @media (max-width: 600px) {
-    .developer-credit {
-    order: 2; /* Moves name between logo and links on mobile */
-    margin: 10px 0;
+    /* ─────────────────────────────
+       HERO UPDATES (No Italics)
+    ───────────────────────────── */
+    .hero h1 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800; /* Extra bold for impact */
+      font-size: clamp(32px, 7vw, 72px);
+      line-height: 1.1;
+      letter-spacing: -0.04em; /* Tight tracking for modern look */
+      color: var(--ink);
+      opacity:0; animation:up .6s ease .2s forwards;
     }
+
+    .hero h1 em {
+      font-style: normal; /* Removed italic */
+      color: var(--accent);
     }
+
+    /* ─────────────────────────────
+       CARD UPDATES
+    ───────────────────────────── */
+    .card-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(17px, 3vw, 21px);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .card-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--stripe-color, var(--accent));
+      background: color-mix(in srgb, var(--stripe-color, var(--accent)) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--stripe-color, var(--accent)) 15%, transparent);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    .card-desc {
+      font-size: clamp(13px, 1.8vw, 14.5px);
+      line-height: 1.6;
+      color: var(--body);
+      font-weight: 400;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    /* Keep the rest of your structural CSS (Nav, Form, Loader, etc.) */
+
+
+
+
+        /* ─────────────────────────────
+           FOOTER
+        ───────────────────────────── */
+        footer {
+          margin-top: auto;
+          padding: clamp(40px, 8vw, 60px) clamp(20px, 5vw, 60px);
+          padding-left:  max(clamp(20px, 5vw, 60px), env(safe-area-inset-left));
+          padding-right: max(clamp(20px, 5vw, 60px), env(safe-area-inset-right));
+          border-top: 1px solid var(--border);
+          background: var(--bg2); /* Slightly darker than body for separation */
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: 24px;
+        }
+
+        .footer-left {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .footer-logo {
+          font-weight: 700;
+          font-size: 14px;
+          color: var(--ink);
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .footer-copy {
+          font-size: 12px;
+          color: var(--muted);
+          font-family: 'Inter', sans-serif;
+        }
+
+        .footer-right {
+          display: flex;
+          gap: 24px;
+        }
+
+        .footer-link {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: var(--body);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+          color: var(--accent);
+        }
+
+        .status-dot {
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          background: #10b981; /* Success Green */
+          border-radius: 50%;
+          margin-right: 4px;
+        }
+
+        @media (max-width: 600px) {
+          footer {
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+          }
+          .footer-left { align-items: center; }
+        }
+
+
+        /* In your CSS file */
+#response-container {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    font-family: sans-serif;
+}
+    </style>
+
     </style>
 </head>
 <body>
@@ -529,7 +592,7 @@
         <div class="logo-mark">⚡</div>
         IdeaForge
     </a>
-    <span class="nav-tag">AI · v2.0</span>
+
 </nav>
 
 <!-- HERO -->
@@ -593,6 +656,27 @@
     </div>
     <div class="cards-list" id="projects"></div>
 </div>
+<footer>
+    <div class="footer-left">
+        <a href="#" class="footer-logo">
+            <span style="opacity: 0.8;">⚡</span> IdeaForge AI
+        </a>
+        <div class="footer-copy">
+            &copy; 2026 Crafted for builders.
+        </div>
+    </div>
+
+    <div class="developer-credit">
+        Developed by <span class="dev-name">Shruti Joshi</span>
+    </div>
+
+    <div class="footer-right">
+        <a href="#" class="footer-link">
+            <span class="status-dot"></span> System Operational
+        </a>
+        <a href="#" class="footer-link">GitHub</a>
+    </div>
+</footer>
 
 <script>
     const STRIPES = ['#d4601a','#2563eb','#059669','#7c3aed','#db2777','#b45309'];
@@ -691,27 +775,6 @@
       if (e.key === 'Enter' && !document.getElementById('genBtn').disabled) generateIdeas();
     });
 </script>
-<footer>
-    <div class="footer-left">
-        <a href="#" class="footer-logo">
-            <span style="opacity: 0.8;">⚡</span> IdeaForge AI
-        </a>
-        <div class="footer-copy">
-            &copy; 2026 Crafted for builders.
-        </div>
-    </div>
 
-    <div class="developer-credit">
-        Developed by <span class="dev-name">Shrut Joshi</span>
-    </div>
-
-    <div class="footer-right">
-        <a href="#" class="footer-link">
-            <span class="status-dot"></span> System Operational
-        </a>
-        <a href="#" class="footer-link">GitHub</a>
-    </div>
-</footer>
 </body>
 </html>
-change the font from italic and other keep simple yet good font only
