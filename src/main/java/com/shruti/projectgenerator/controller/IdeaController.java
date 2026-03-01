@@ -26,6 +26,8 @@ public class IdeaController {
                 "Each idea should include:\n" +
                 "- Title\n" +
                 "- Problem statement\n" +
+                "\\n\\nPlease format the response using clear headings, bullet points, and double line breaks between sections so it is easy to read on a website." +
+                "use headings for problem statements"+
                 "- Key features\n" +
                 "- Deployment suggestion";
 
