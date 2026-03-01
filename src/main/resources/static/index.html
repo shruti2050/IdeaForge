@@ -1,171 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IdeaForge AI</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-          --bg: #f8f6f1; --bg2: #f2efe8; --surface: #ffffff;
-          --border: #e4dfd4; --border2: #cdc7bc;
-          --ink: #1a1714; --ink2: #3d3730; --body: #5a5249;
-          --muted: #9e9488; --accent: #d4601a; --accent2: #2563eb;
-          --tag-bg: #f0ece4; --tag-text: #7a6e62;
-          --card-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
-          --card-shadow-hover: 0 2px 8px rgba(0,0,0,.08), 0 16px 40px rgba(0,0,0,.10);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-        body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; min-height: 100dvh; }
+        body {
+            background: radial-gradient(circle at top, #1e293b, #0f172a 60%);
+            color: #e2e8f0;
+        }
 
-        /* NAV & HERO (Shortened for brevity) */
-        nav { position: sticky; top:0; z-index:100; display: flex; align-items:center; justify-content:space-between; padding: 18px 60px; background: rgba(248,246,241,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .logo { display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color: var(--ink); }
-        .logo-mark { width:30px; height:30px; background: var(--ink); border-radius:8px; display:grid; place-items:center; color:#fff; }
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 25px 50px;
+        }
 
-        .hero { text-align:center; padding: 80px 20px 40px; }
-        .hero h1 { font-weight: 800; font-size: clamp(32px, 7vw, 72px); letter-spacing: -0.04em; margin-bottom: 10px; }
-        .hero h1 em { font-style: normal; color: var(--accent); }
-        .hero-sub { color: var(--body); max-width: 500px; margin: 0 auto; }
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: #60a5fa;
+        }
 
-        /* FORM */
-        .generator { width:min(680px,100%); margin:0 auto 60px; padding:0 20px; }
-        .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); }
-        .fields-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-        @media(max-width:460px){ .fields-grid { grid-template-columns:1fr; } }
-        .field label { display:block; font-size:11px; font-weight:600; color: var(--ink2); margin-bottom:7px; }
-        .field input { width:100%; padding:12px; background: var(--bg); border:1px solid var(--border); border-radius:10px; font-size:14px; }
-        .gen-btn { width:100%; padding:16px; background:var(--ink); border:none; border-radius:12px; color:#fff; font-weight:600; cursor:pointer; margin-top: 10px; }
+        /* HERO */
+        .hero {
+            text-align: center;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        /* GENERATOR */
+        .generator {
+            max-width: 750px;
+            margin: 50px auto;
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96,165,250,0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(90deg,#3b82f6,#6366f1);
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
 
         /* LOADER */
-        .loader { display:none; padding:20px 0; }
-        .loader.active { display:block; }
-        .loader-track { width:100%; height:2px; background:var(--border); overflow:hidden; }
-        .loader-fill { height:100%; background:var(--accent); animation: sweep 2s infinite; }
-        @keyframes sweep { 0% { width:0; margin-left:0; } 50% { width:50%; } 100% { width:0; margin-left:100%; } }
-
-        /* RESULTS - CRITICAL FIX HERE */
-        .results-wrap { width:min(800px,100%); margin:0 auto 100px; padding:0 20px; }
-        .idea-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; display: flex; overflow: hidden; box-shadow: var(--card-shadow); }
-        .card-stripe { width: 5px; background: var(--stripe-color); }
-        .card-body { padding: 25px; flex: 1; }
-        .card-title { font-weight: 700; font-size: 20px; margin-bottom: 10px; color: var(--ink); }
-
-        /* THE FIX FOR THE WALL OF TEXT */
-        .card-desc {
-            white-space: pre-wrap; /* This makes \n actual line breaks */
-            font-size: 15px;
-            line-height: 1.7;
-            color: var(--body);
-            border-top: 1px solid var(--border);
-            padding-top: 15px;
+        .loader {
+            display: none;
+            margin: 25px auto;
+            border: 4px solid #1e293b;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            animation: spin 1s linear infinite;
         }
 
-        .card-tags { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
-        .ktag { font-family: 'JetBrains Mono', monospace; font-size: 10px; background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* RESULTS */
+        .results {
+            max-width: 850px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .project {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-4px);
+        }
+
+        .project h3 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .project p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* MOBILE */
+        @media(max-width:600px){
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            nav {
+                padding: 20px;
+            }
+
+            .generator {
+                padding: 25px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<nav><a class="logo" href="#"><div class="logo-mark">⚡</div>IdeaForge</a></nav>
+<nav>
+    <div class="logo">IdeaForge AI</div>
+</nav>
 
 <div class="hero">
-    <h1>Ideas worth <em>building</em></h1>
-    <p class="hero-sub">Get industry-ready project ideas instantly.</p>
+    <h1>Generate Industry-Level Project Ideas</h1>
+    <p>AI-powered suggestions tailored to your skills and interests</p>
 </div>
 
 <div class="generator">
-    <div class="form-card">
-        <div class="fields-grid">
-            <div class="field"><label>Tech Stack</label><input type="text" id="tech" placeholder="e.g. Java, React"></div>
-            <div class="field"><label>Domain</label><input type="text" id="domain" placeholder="e.g. Fintech"></div>
-        </div>
-        <div class="fields-grid">
-            <div class="field"><label>Experience</label><input type="text" id="level" placeholder="e.g. Mid-level"></div>
-            <div class="field"><label>Interest</label><input type="text" id="interest" placeholder="e.g. ML, Security"></div>
-        </div>
-        <button class="gen-btn" id="genBtn" onclick="generateIdeas()">⚡ Generate Ideas</button>
-        <div class="loader" id="loader"><div class="loader-track"><div class="loader-fill"></div></div></div>
-    </div>
+    <input type="text" id="tech" placeholder="Tech Stack (Java Fullstack)">
+    <input type="text" id="domain" placeholder="Domain (Fintech, Health, EdTech)">
+    <input type="text" id="level" placeholder="Experience Level">
+    <input type="text" id="interest" placeholder="Interest Area">
+
+    <button onclick="generateIdeas()">Generate Ideas</button>
+    <div class="loader" id="loader"></div>
 </div>
 
-<div class="results-wrap" id="resultsWrap" style="display:none">
-    <div id="projects"></div>
-</div>
+<div class="results" id="projects"></div>
 
 <script>
-    const STRIPES = ['#d4601a','#2563eb','#059669','#7c3aed'];
-    const KEYWORDS = ['AI','ML','API','Java','React','Blockchain','Fintech','Security'];
+    async function generateIdeas() {
 
-   async function generateIdeas(){
-  const btn = document.getElementById('genBtn');
-  const loader = document.getElementById('loader');
-  const list = document.getElementById('projects');
-  const wrap = document.getElementById('resultsWrap');
+        const loader = document.getElementById("loader");
+        const projectsDiv = document.getElementById("projects");
 
-  list.innerHTML = '';
-  wrap.style.display = 'none';
-  loader.classList.add('active');
-  btn.disabled = true;
+        projectsDiv.innerHTML = "";
+        loader.style.display = "block";
 
-  try {
-    const res = await fetch('/api/generate', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        techStack: document.getElementById('tech').value,
-        domain:    document.getElementById('domain').value,
-        level:     document.getElementById('level').value,
-        interest:  document.getElementById('interest').value
-      })
-    });
+        const response = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                techStack: document.getElementById("tech").value,
+                domain: document.getElementById("domain").value,
+                level: document.getElementById("level").value,
+                interest: document.getElementById("interest").value
+            })
+        });
 
-    const raw = await res.text();
+        const text = await response.text();
+        loader.style.display = "none";
 
-    // 1. IMPROVED SPLIT: Look for "Project Idea X" or "Idea X" or "##"
-    let ideas = raw.split(/(?=Project Idea \d|## Project Idea \d|Idea \d:|\n\d+\.)/gi)
-                   .filter(s => s.trim().length > 50);
+        const ideas = text.split(/\n\d+\.\s/).filter(i => i.trim() !== "");
 
-    loader.classList.remove('active');
-    btn.disabled = false;
-    wrap.style.display = 'block';
+        ideas.forEach(idea => {
 
-    ideas.forEach((content, i) => {
-      // 2. CONVERT MARKDOWN STARS TO HTML BOLD TAGS
-      let formattedContent = content
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Fixes the **stars**
-        .replace(/^\d+\.\s+/, '') // Removes leading numbers
-        .replace(/##\s+/g, '');   // Removes ## headers
+            const card = document.createElement("div");
+            card.className = "project";
 
-      const lines = formattedContent.split('\n').filter(l => l.trim());
-      const title = lines[0] || "Project Idea";
-      const desc  = lines.slice(1).join('<br>'); // Use <br> for spacing inside cards
+            const lines = idea.split("\n");
 
-      const card = document.createElement('div');
-      card.className = 'idea-card';
-      card.style.setProperty('--stripe-color', STRIPES[i % STRIPES.length]);
+            const title = document.createElement("h3");
+            title.innerText = lines[0];
 
-      card.innerHTML = `
-        <div class="card-stripe"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <span class="card-badge">FORGE ${String(i+1).padStart(2,'0')}</span>
-          </div>
-          <div class="card-title">${title}</div>
-          <div class="card-desc">${desc}</div>
-        </div>
-      `;
-      list.appendChild(card);
-    });
+            const desc = document.createElement("p");
+            desc.innerText = lines.slice(1).join(" ");
 
-  } catch(e) {
-    loader.classList.remove('active');
-    btn.disabled = false;
-    alert('Deployment successful, but API call failed. Check Render logs.');
-  }
-}
+            card.appendChild(title);
+            card.appendChild(desc);
+            projectsDiv.appendChild(card);
+        });
+    }
 </script>
+
 </body>
 </html>
