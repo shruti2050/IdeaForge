@@ -455,132 +455,149 @@
           font-weight:600; flex-shrink:0; margin-top:1px; font-size:13px;
         }
 
-        /* ════════════════════════════
-           FOOTER
-        ════════════════════════════ */
-        footer {
-          position:relative; z-index:5;
-          margin-top:clamp(60px,8vw,100px);
-          background:var(--surface);
-          border-top:1px solid var(--border);
-          padding:clamp(28px,5vw,44px) clamp(20px,5vw,60px);
-          padding-left: max(clamp(20px,5vw,60px), env(safe-area-inset-left));
-          padding-right:max(clamp(20px,5vw,60px), env(safe-area-inset-right));
-          padding-bottom:max(clamp(28px,5vw,44px), env(safe-area-inset-bottom));
-        }
+<!--        /* ════════════════════════════-->
+<!--           FOOTER-->
+<!--        ════════════════════════════ */-->
+<!--        footer {-->
+<!--          position:relative; z-index:5;-->
+<!--          margin-top:clamp(60px,8vw,100px);-->
+<!--          background:var(&#45;&#45;surface);-->
+<!--          border-top:1px solid var(&#45;&#45;border);-->
+<!--          padding:clamp(28px,5vw,44px) clamp(20px,5vw,60px);-->
+<!--          padding-left: max(clamp(20px,5vw,60px), env(safe-area-inset-left));-->
+<!--          padding-right:max(clamp(20px,5vw,60px), env(safe-area-inset-right));-->
+<!--          padding-bottom:max(clamp(28px,5vw,44px), env(safe-area-inset-bottom));-->
+<!--        }-->
 
-        .footer-inner {
-          max-width:900px; margin-inline:auto;
-          display:flex; flex-direction:column; gap:clamp(20px,3vw,28px);
-        }
+<!--        .footer-inner {-->
+<!--          max-width:900px; margin-inline:auto;-->
+<!--          display:flex; flex-direction:column; gap:clamp(20px,3vw,28px);-->
+<!--        }-->
 
-        .footer-top {
-          display:flex; align-items:flex-start; justify-content:space-between;
-          gap:clamp(20px,4vw,40px); flex-wrap:wrap;
-        }
+<!--        .footer-top {-->
+<!--          display:flex; align-items:flex-start; justify-content:space-between;-->
+<!--          gap:clamp(20px,4vw,40px); flex-wrap:wrap;-->
+<!--        }-->
 
-        .footer-brand { display:flex; flex-direction:column; gap:8px; }
+<!--        .footer-brand { display:flex; flex-direction:column; gap:8px; }-->
 
-        .footer-logo {
-          display:flex; align-items:center; gap:9px;
-          font-family:'Syne', sans-serif;
-          font-weight:800; font-size:16px;
-          color:var(--ink); letter-spacing:-.3px;
-        }
+<!--        .footer-logo {-->
+<!--          display:flex; align-items:center; gap:9px;-->
+<!--          font-family:'Syne', sans-serif;-->
+<!--          font-weight:800; font-size:16px;-->
+<!--          color:var(&#45;&#45;ink); letter-spacing:-.3px;-->
+<!--        }-->
 
-        .footer-logo-mark {
-          width:28px; height:28px;
-          background:var(--ink); border-radius:7px;
-          display:grid; place-items:center;
-          font-size:13px; flex-shrink:0;
-        }
+<!--        .footer-logo-mark {-->
+<!--          width:28px; height:28px;-->
+<!--          background:var(&#45;&#45;ink); border-radius:7px;-->
+<!--          display:grid; place-items:center;-->
+<!--          font-size:13px; flex-shrink:0;-->
+<!--        }-->
 
-        .footer-tagline {
-          font-size:13px; color:var(--muted);
-          line-height:1.5; max-width:220px;
-        }
+<!--        .footer-tagline {-->
+<!--          font-size:13px; color:var(&#45;&#45;muted);-->
+<!--          line-height:1.5; max-width:220px;-->
+<!--        }-->
 
-        /* developer credit */
-        .dev-credit {
-          display:flex; align-items:center; gap:8px;
-          margin-top:14px;
-          padding:10px 14px;
-          background:var(--bg);
-          border:1px solid var(--border);
-          border-radius:10px;
-          width:fit-content;
-        }
+<!--        /* developer credit */-->
+<!--        .dev-credit {-->
+<!--          display:flex; align-items:center; gap:8px;-->
+<!--          margin-top:14px;-->
+<!--          padding:10px 14px;-->
+<!--          background:var(&#45;&#45;bg);-->
+<!--          border:1px solid var(&#45;&#45;border);-->
+<!--          border-radius:10px;-->
+<!--          width:fit-content;-->
+<!--        }-->
 
-        .dev-label {
-          font-family:'JetBrains Mono', monospace;
-          font-size:10px; letter-spacing:1px; text-transform:uppercase;
-          color:var(--muted);
-        }
+<!--        .dev-label {-->
+<!--          font-family:'JetBrains Mono', monospace;-->
+<!--          font-size:10px; letter-spacing:1px; text-transform:uppercase;-->
+<!--          color:var(&#45;&#45;muted);-->
+<!--        }-->
 
-        .dev-name {
-          display:flex; align-items:center; gap:6px;
-          font-family:'Syne', sans-serif;
-          font-size:13px; font-weight:700;
-          color:var(--ink); text-decoration:none;
-          transition:color .15s;
-        }
+<!--        .dev-name {-->
+<!--          display:flex; align-items:center; gap:6px;-->
+<!--          font-family:'Syne', sans-serif;-->
+<!--          font-size:13px; font-weight:700;-->
+<!--          color:var(&#45;&#45;ink); text-decoration:none;-->
+<!--          transition:color .15s;-->
+<!--        }-->
 
-        .dev-name svg { flex-shrink:0; }
+<!--        .dev-name svg { flex-shrink:0; }-->
 
-        @media(hover:hover){ .dev-name:hover { color:var(--accent); } }
+<!--        @media(hover:hover){ .dev-name:hover { color:var(&#45;&#45;accent); } }-->
 
-        /* footer nav columns */
+<!--        /* footer nav columns */-->
+<!--        .footer-links {-->
+<!--          display:flex; gap:clamp(28px,5vw,56px); flex-wrap:wrap;-->
+<!--        }-->
+
+<!--        .footer-col { display:flex; flex-direction:column; gap:10px; }-->
+
+<!--        .footer-col-label {-->
+<!--          font-family:'JetBrains Mono', monospace;-->
+<!--          font-size:10px; letter-spacing:1.5px; text-transform:uppercase;-->
+<!--          color:var(&#45;&#45;muted); margin-bottom:2px;-->
+<!--        }-->
+
+<!--        .footer-col a {-->
+<!--          font-size:13px; color:var(&#45;&#45;body);-->
+<!--          text-decoration:none; font-weight:400;-->
+<!--          transition:color .15s;-->
+<!--        }-->
+
+<!--        @media(hover:hover){ .footer-col a:hover { color:var(&#45;&#45;ink); } }-->
+
+<!--        .footer-bottom {-->
+<!--          display:flex; align-items:center; justify-content:space-between;-->
+<!--          gap:12px; flex-wrap:wrap;-->
+<!--          padding-top:clamp(16px,2.5vw,22px);-->
+<!--          border-top:1px solid var(&#45;&#45;border);-->
+<!--        }-->
+
+<!--        .footer-copy {-->
+<!--          font-family:'JetBrains Mono', monospace;-->
+<!--          font-size:clamp(9px,1.4vw,10px);-->
+<!--          color:var(&#45;&#45;muted); letter-spacing:.3px;-->
+<!--        }-->
+
+<!--        .footer-made {-->
+<!--          font-size:12px; color:var(&#45;&#45;muted);-->
+<!--          display:flex; align-items:center; gap:5px;-->
+<!--        }-->
+
+<!--        .footer-made span { color:var(&#45;&#45;accent); }-->
+
+<!--        /* ════════════════════════════-->
+<!--           KEYFRAMES-->
+<!--        ════════════════════════════ */-->
+<!--        @keyframes up {-->
+<!--          from { opacity:0; transform:translateY(20px); }-->
+<!--          to   { opacity:1; transform:translateY(0); }-->
+<!--        }-->
+
+<!--        @keyframes cardIn {-->
+<!--          to { opacity:1; transform:translateY(0); }-->
+<!--        }-->
+
         .footer-links {
-          display:flex; gap:clamp(28px,5vw,56px); flex-wrap:wrap;
-        }
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
-        .footer-col { display:flex; flex-direction:column; gap:10px; }
+.footer-links a {
+  font-size:14px;
+  color:var(--body);
+  text-decoration:none;
+  transition:color .2s;
+}
 
-        .footer-col-label {
-          font-family:'JetBrains Mono', monospace;
-          font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
-          color:var(--muted); margin-bottom:2px;
-        }
-
-        .footer-col a {
-          font-size:13px; color:var(--body);
-          text-decoration:none; font-weight:400;
-          transition:color .15s;
-        }
-
-        @media(hover:hover){ .footer-col a:hover { color:var(--ink); } }
-
-        .footer-bottom {
-          display:flex; align-items:center; justify-content:space-between;
-          gap:12px; flex-wrap:wrap;
-          padding-top:clamp(16px,2.5vw,22px);
-          border-top:1px solid var(--border);
-        }
-
-        .footer-copy {
-          font-family:'JetBrains Mono', monospace;
-          font-size:clamp(9px,1.4vw,10px);
-          color:var(--muted); letter-spacing:.3px;
-        }
-
-        .footer-made {
-          font-size:12px; color:var(--muted);
-          display:flex; align-items:center; gap:5px;
-        }
-
-        .footer-made span { color:var(--accent); }
-
-        /* ════════════════════════════
-           KEYFRAMES
-        ════════════════════════════ */
-        @keyframes up {
-          from { opacity:0; transform:translateY(20px); }
-          to   { opacity:1; transform:translateY(0); }
-        }
-
-        @keyframes cardIn {
-          to { opacity:1; transform:translateY(0); }
-        }
+.footer-links a:hover {
+  color:var(--ink);
+}
     </style>
 </head>
 <body>
@@ -652,6 +669,7 @@
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
     <div class="footer-inner">
+
         <div class="footer-top">
 
             <div class="footer-brand">
@@ -659,66 +677,38 @@
                     <div class="footer-logo-mark">⚡</div>
                     IdeaForge
                 </div>
-                <p class="footer-tagline">AI-powered project idea generation for developers at every level.</p>
+                <p class="footer-tagline">
+                    AI-powered project idea generation for developers.
+                </p>
 
-                <!-- ── Developer Credit ── -->
                 <div class="dev-credit">
                     <span class="dev-label">Built by</span>
                     <a class="dev-name"
                        href="https://github.com/shruti2050"
                        target="_blank" rel="noopener noreferrer">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57
-                       0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41
-                       -1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815
-                       2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925
-                       0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23
-                       .96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65
-                       .24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925
-                       .435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57
-                       A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                        </svg>
                         Shruti Joshi
                     </a>
                 </div>
             </div>
 
             <div class="footer-links">
-                <div class="footer-col">
-                    <span class="footer-col-label">Product</span>
-                    <a href="#" onclick="scrollToTop(event)">Generator</a>
-                    <a href="#" onclick="scrollToHero(event)">How it works</a>
-                    <a href="https://github.com/shruti2050/ideaforge/releases"
-                       target="_blank" rel="noopener noreferrer">Changelog ↗</a>
-                </div>
-                <div class="footer-col">
-                    <span class="footer-col-label">Resources</span>
-                    <a href="https://github.com/shruti2050/ideaforge/wiki"
-                       target="_blank" rel="noopener noreferrer">Documentation ↗</a>
-                    <a href="https://github.com/shruti2050/ideaforge#readme"
-                       target="_blank" rel="noopener noreferrer">API Docs ↗</a>
-                    <a href="https://github.com/shruti2050/ideaforge"
-                       target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                </div>
-                <div class="footer-col">
-                    <span class="footer-col-label">Connect</span>
-                    <a href="https://github.com/shruti2050"
-                       target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                    <a href="https://linkedin.com/in/shruti-joshi1208"
-                       target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-                    <a href="mailto:shrutijoshi1208@gmail.com">Contact ✉</a>
-                </div>
+                <a href="https://github.com/shruti2050/ideaforge"
+                   target="_blank" rel="noopener noreferrer">GitHub</a>
+
+                <a href="https://linkedin.com/in/shruti-joshi1208"
+                   target="_blank" rel="noopener noreferrer">LinkedIn</a>
+
+                <a href="mailto:shrutijoshi1208@gmail.com">Contact</a>
             </div>
 
         </div>
 
         <div class="footer-bottom">
-            <span class="footer-copy">© 2025 IdeaForge. All rights reserved.</span>
-            <div class="footer-made">Made with <span>♥</span> for developers</div>
+            <span class="footer-copy">© 2026 IdeaForge</span>
         </div>
+
     </div>
 </footer>
-
 <!-- ══════════ SCRIPTS ══════════ -->
 <script>
     const COLORS = ['#c75b14','#1d4ed8','#15803d','#6d28d9','#be185d','#0f766e'];
